@@ -31,7 +31,10 @@ Sets player's gravity to one tenth for ten seconds, with gentle cooldown so you 
 		{"vessels:glass_bottle", "vessels:glass_bottle", "vessels:glass_bottle"},
 		
 		
-		
+
+Teleportation Potion
+----------
+Take it once to set the position, take it again to teleport to that position.
 
 
 Copyright 2016 Izzy

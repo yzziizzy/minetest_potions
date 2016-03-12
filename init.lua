@@ -163,3 +163,62 @@ minetest.register_craft({
 	},
 	replacements = {{"bucket:bucket_water", "bucket:bucket_empty"}},
 })
+
+
+
+
+
+----------------------------------------------------
+
+
+minetest.register_craftitem("potions:teleport_broth", {
+	description = "Teleportation Potion Broth",
+	inventory_image = "potions_teleport_broth.png",
+	stack_max = 1,
+})
+
+minetest.register_craftitem("potions:teleport", {
+	description = "Teleportation Potion",
+	inventory_image = "potions_teleport.png",
+	stack_max = 1,
+	on_use = function(itemstack, user, pointed_thing)
+		return {name="potions:teleport_recall", count=1, wear=0, metadata=minetest.serialize(user:getpos())}
+	end,
+})
+
+minetest.register_craftitem("potions:teleport_recall", {
+	description = "Teleportation Recall Potion",
+	inventory_image = "potions_teleport_recall.png",
+	stack_max = 1,
+	on_use = function(itemstack, user, pointed_thing)
+	
+		local item = itemstack:take_item(1)
+		
+		local pos = minetest.deserialize(item:get_metadata())
+		
+		if pos ~= nil then
+			user:setpos(pos)
+		end
+		
+		return "vessels:glass_bottle 1"
+	end,
+})
+
+minetest.register_craft( {
+	type = "cooking",
+	cooktime = 30,
+	output = "potions:teleport",
+	recipe = "potions:teleport_broth",
+})
+
+minetest.register_craft({
+	output = "potions:teleport_broth 3",
+	recipe = {
+		{"default:obsidian_shard", "dye:violet", "default:obsidian_shard"}, 
+		{"", "bucket:bucket_water", ""},
+		{"vessels:glass_bottle", "vessels:glass_bottle", "vessels:glass_bottle"},
+	},
+	replacements = {{"bucket:bucket_water", "bucket:bucket_empty"}},
+})
+
+
