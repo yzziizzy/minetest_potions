@@ -222,3 +222,75 @@ minetest.register_craft({
 })
 
 
+
+
+
+-----------------------------------------------
+
+
+
+minetest.register_craftitem("potions:flight_broth", {
+	description = "Flight Potion Broth",
+	inventory_image = "potions_flight_broth.png",
+	stack_max = 5,
+})
+
+minetest.register_craftitem("potions:flight", {
+	description = "Flight Potion",
+	inventory_image = "potions_flight.png",
+	stack_max = 5,
+	on_use = function(itemstack, user, pointed_thing)
+		local name = user:get_player_name()
+		local privs = minetest.get_player_privs(name)
+	
+		privs.fly = true
+		minetest.set_player_privs(name, privs)
+		
+		minetest.after(10, function()
+			local privs = minetest.get_player_privs(name)
+			privs.fly = nil
+			minetest.set_player_privs(name, privs)
+			
+			user:set_physics_override({
+				gravity = .5,
+			})
+		end)		
+		
+		minetest.after(14, function()
+			user:set_physics_override({
+				gravity = .75,
+			})
+		end)
+		minetest.after(18, function()
+			user:set_physics_override({
+				gravity = 1.0,
+			})
+		end)
+	
+		itemstack:take_item(1)
+		
+		local inv = user:get_inventory()
+		inv:add_item("main", "vessels:glass_bottle 1")
+		
+		return itemstack
+	end,
+})
+
+minetest.register_craft( {
+	type = "cooking",
+	cooktime = 30,
+	output = "potions:flight",
+	recipe = "potions:flight_broth",
+})
+
+minetest.register_craft({
+	output = "potions:flight_broth 3",
+	recipe = {
+		{"farming:cotton", "dye:cyan", "farming:cotton"}, 
+		{"", "bucket:bucket_water", ""},
+		{"vessels:glass_bottle", "vessels:glass_bottle", "vessels:glass_bottle"},
+	},
+	replacements = {{"bucket:bucket_water", "bucket:bucket_empty"}},
+})
+
+

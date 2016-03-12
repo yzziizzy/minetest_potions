@@ -36,6 +36,19 @@ Teleportation Potion
 ----------
 Take it once to set the position, take it again to teleport to that position.
 
+		{"default:obsidian_shard", "dye:violet", "default:obsidian_shard"}, 
+		{"", "bucket:bucket_water", ""},
+		{"vessels:glass_bottle", "vessels:glass_bottle", "vessels:glass_bottle"},
+		
+		
+Flight Potion
+----------
+Allows flight for ten seconds, with gentle cooldown so you don't just fall to your death.
+
+		{"farming:cotton", "dye:cyan", "farming:cotton"}, 
+		{"", "bucket:bucket_water", ""},
+		{"vessels:glass_bottle", "vessels:glass_bottle", "vessels:glass_bottle"},
+
 
 Copyright 2016 Izzy
 
