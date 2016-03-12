@@ -1,0 +1,5 @@
+default
+vessels
+dye
+bucket
+flowers
