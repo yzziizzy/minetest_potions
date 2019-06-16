@@ -1,9 +1,15 @@
 
+potions = {}
 
 local modpath = minetest.get_modpath("potions")
 
 -- Add everything:
 local modname = "potions"
+
+
+dofile(modpath.."/alchemy.lua")
+
+
 
 
 minetest.register_craftitem("potions:healing_broth", {
@@ -174,7 +180,7 @@ minetest.register_craft({
 minetest.register_craftitem("potions:teleport_broth", {
 	description = "Teleportation Potion Broth",
 	inventory_image = "potions_teleport_broth.png",
-	stack_max = 1,
+	stack_max = 3,
 })
 
 minetest.register_craftitem("potions:teleport", {
