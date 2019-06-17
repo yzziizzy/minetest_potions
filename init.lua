@@ -7,9 +7,52 @@ local modpath = minetest.get_modpath("potions")
 local modname = "potions"
 
 
+dofile(modpath.."/geodes.lua")
 dofile(modpath.."/alchemy.lua")
 
 
+
+--[[
+fermentation, distillation, soaking/boiling pot
+
+ink, black/gold/silver/red
+ethanol, methanol
+ammonia
+saltpeter, halite, iron(II) sulfate aka green vitriol (melanterite), soda nitre, pot ash
+pyrite
+sulfur, iodine
+
+extra metals:
+silver, lead, platinum, rhodium, arsenic, bismuth, mercury, iridium, osmium
+
+gems:
+emerald, ruby, lapis lazuli, opal, sapphire, citrine, aquamarine, amethyst
+]]
+
+
+minetest.register_craftitem("potions:holy_water", {
+	description = "Holy Water",
+	inventory_image = "potions_healing_broth.png",
+	stack_max = 5,
+})
+
+minetest.register_craftitem("potions:solvent", {
+	description = "Solvent",
+	inventory_image = "potions_healing_broth.png",
+	stack_max = 5,
+})
+
+--[[
+minetest.register_craft({
+	output = "potions:solvent 3",
+	recipe = {
+		{"flowers:mushroom_red", "dye:red", "default:apple"}, 
+		{"", "bucket:bucket_water", ""},
+		{"vessels:glass_bottle", "vessels:glass_bottle", "vessels:glass_bottle"},
+	},
+	replacements = {{"bucket:bucket_water", "bucket:bucket_empty"}},
+})
+]]
 
 
 minetest.register_craftitem("potions:healing_broth", {
