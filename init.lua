@@ -1,5 +1,10 @@
 
-potions = {}
+potions = {
+	geodes = {},
+}
+
+local potions_players = {}
+
 
 local modpath = minetest.get_modpath("potions")
 
@@ -10,6 +15,128 @@ local modname = "potions"
 dofile(modpath.."/geodes.lua")
 dofile(modpath.."/alchemy.lua")
 
+
+
+
+
+minetest.register_on_joinplayer(function(player)
+	local name = player:get_player_name()
+	
+
+	local mid = player:hud_add({
+		hud_elem_type = "image",
+		position  = {x = 0, y = 1},
+		offset    = {x = 10, y = -120},
+		text      = "potions_manna_bar.png",
+		scale     = { x = 1, y = .1},
+		alignment = { x = 0, y = -1 },
+	})
+
+	player:hud_add({
+		hud_elem_type = "image",
+		position  = {x = 0, y = 1},
+		offset    = {x = 10, y = -120},
+		text      = "potions_manna_border.png",
+		scale     = { x = 1, y = 1 },
+		alignment = { x = 0, y = -1 },
+	})
+	
+	if player:get_attribute("max_manna") == nil then
+		player:set_attribute("manna", 10)
+		player:set_attribute("max_manna", 100)
+	end
+	
+	potions_players[name] = {
+		player = player,
+		
+		ui = {
+			manna_bar = mid,
+		},
+	}
+	
+	
+
+-- 	player:hud_change(idx, "text", "New Text")
+-- 	
+-- 	    local meta        = player:get_meta()
+--     local digs_text   = "Digs: " .. meta:get_int("score:digs")
+--     local places_text = "Places: " .. meta:get_int("score:places")
+--     local percent     = tonumber(meta:get("score:score") or 0.2)
+--     
+--      player:hud_change(ids["bar_foreground"],
+--                 "scale", { x = percent, y = 1 })
+-- 	
+	
+	print(dump(potions_players[name].default_sky))
+end)
+
+minetest.register_on_leaveplayer(function(player)
+	local name = player:get_player_name()
+	potions_players[name] = nil
+end)
+
+
+
+
+local function update_player_manna(player, increase)
+	local p = player.player
+	
+	
+	local manna = tonumber(p:get_attribute("manna")) or 0
+	local max_manna = tonumber(p:get_attribute("max_manna")) or 100
+	
+	manna = math.min(manna + increase, max_manna)
+	
+	
+	local mpct = manna / max_manna
+	
+	p:hud_change(player.ui.manna_bar, "scale", {x = 1, y = mpct})
+
+	p:set_attribute("manna", manna)
+end
+
+local function update_all_manna() 
+	for _,p in pairs(potions_players) do
+		update_player_manna(p, 2)
+	end
+	
+	minetest.after(1, update_all_manna)
+end
+
+minetest.after(1, update_all_manna)
+
+
+potions.use_manna = function(player, amt) 
+	local m = tonumber(player:get_attribute("manna")) or 0
+	m = m - amt
+	if m < 0 then
+		if trigger_negative_manna(player, m) then
+			return
+		end
+	end
+	
+	player:set_attribute("manna", math.max(0, m))
+	update_player_manna(potions_players[player:get_player_name()], 0)
+end
+
+potions.get_manna = function(player) 
+	return tonumber(player:get_attribute("manna")) or 0
+end
+
+potions.set_manna = function(player, amt) 
+	local max = tonumber(player:get_attribute("max_manna")) or 100
+	player:set_attribute("manna", math.max(0, math.min(max, amt)))
+	update_player_manna(potions_players[player:get_player_name()], 0)
+end
+
+potions.add_manna = function(player, amt) 
+	update_player_manna(potions_players[player:get_player_name()], amt)
+end
+
+potions.set_max_manna = function(player, amt) 
+	player:set_attribute("manna", math.max(0, amt))
+	update_player_manna(potions_players[player:get_player_name()], 0)
+end
 
 
 --[[
@@ -27,6 +154,17 @@ silver, lead, platinum, rhodium, arsenic, bismuth, mercury, iridium, osmium
 
 gems:
 emerald, ruby, lapis lazuli, opal, sapphire, citrine, aquamarine, amethyst
+
+
+
+
+
+magic beanstalk
+arcing bridge
+
+
+
+mana
 ]]
 
 

@@ -1,137 +1,183 @@
 
 
 
+function potions.register_geode(name, opts)
+	local tiles = opts.tiles or "default_diamond.png"
+	if type(tiles) == "string" then
+		tiles = {tiles}
+	end
+	
+	local desc = opts.desc or opts.description or (name.." Crystal")
+	
+	local drops = opts.drops
+	
+	potions.geodes[name] = {
+		name = name,
+		drops = drops,
+	}
+	
+	minetest.register_node("potions:geode_"..name.."_1", {
+		description = desc,
+		paramtype = "light",
+		paramtype2 = "facedir",
+		drawtype = "nodebox",
+		tiles = tiles,
+		drops = drops,
+		node_box = {
+			type = "fixed",
+			fixed = {
+				{-.5, -.5, -.5, 0.5, -.4, 0.5}
+			},
+		},
+		groups = {cracky=3, geode_wall = 1 },
+		on_construct = function(pos) potions.orient_geode_wall(pos) end,
+	})
 
-minetest.register_node("potions:crystal_2", {
-	description = "Crystal",
-	paramtype = "light",
-	paramtype2 = "facedir",
-	drawtype = "nodebox",
-	tiles = {"default_mese.png"},
-	node_box = {
-		type = "fixed",
-		fixed = {
-			{-.5, -.5, -.5, 0.5, -.4, 0.5},
-			{-.5, -.5, -.5, -.4, 0.5, 0.5},
+	minetest.register_node("potions:geode_"..name.."_2", {
+		description = desc,
+		paramtype = "light",
+		paramtype2 = "facedir",
+		drawtype = "nodebox",
+		tiles = tiles,
+		drops = drops .. " 2",
+		node_box = {
+			type = "fixed",
+			fixed = {
+				{-.5, -.5, -.5, 0.5, -.4, 0.5},
+				{-.5, -.5, -.5, -.4, 0.5, 0.5},
+			},
 		},
-	},
-	groups = {cracky=3, geode_wall = 1 },
-})
+		groups = {cracky=3, geode_wall = 1 },
+	})
 
-minetest.register_node("potions:crystal_22", {
-	description = "Crystal",
-	paramtype = "light",
-	paramtype2 = "facedir",
-	drawtype = "nodebox",
-	tiles = {"default_mese.png"},
-	node_box = {
-		type = "fixed",
-		fixed = {
-			{-.5, -.5, -.5, 0.5, -.4, 0.5},
-			{-.5, 0.4, -.5, 0.5, 0.5, 0.5},
+	minetest.register_node("potions:geode_"..name.."_22", {
+		description = desc,
+		paramtype = "light",
+		paramtype2 = "facedir",
+		drawtype = "nodebox",
+		tiles = tiles,
+		drops = drops .. " 2",
+		node_box = {
+			type = "fixed",
+			fixed = {
+				{-.5, -.5, -.5, 0.5, -.4, 0.5},
+				{-.5, 0.4, -.5, 0.5, 0.5, 0.5},
+			},
 		},
-	},
-	groups = {cracky=3, geode_wall = 1 },
-})
-minetest.register_node("potions:crystal_3", {
-	description = "Crystal",
-	paramtype = "light",
-	paramtype2 = "facedir",
-	drawtype = "nodebox",
-	tiles = {"default_mese.png"},
-	node_box = {
-		type = "fixed",
-		fixed = {
-			{-.5, -.5, -.5, 0.5, -.4, 0.5},
-			{-.5, -.5, -.5, -.4, 0.5, 0.5},
-			{-.5, -.5, -.5, 0.5, 0.5, -.4},
+		groups = {cracky=3, geode_wall = 1 },
+	})
+	
+	minetest.register_node("potions:geode_"..name.."_3", {
+		description = desc,
+		paramtype = "light",
+		paramtype2 = "facedir",
+		drawtype = "nodebox",
+		tiles = tiles,
+		drops = drops .. " 3",
+		node_box = {
+			type = "fixed",
+			fixed = {
+				{-.5, -.5, -.5, 0.5, -.4, 0.5},
+				{-.5, -.5, -.5, -.4, 0.5, 0.5},
+				{-.5, -.5, -.5, 0.5, 0.5, -.4},
+			},
 		},
-	},
-	groups = {cracky=3, geode_wall = 1 },
-})
-minetest.register_node("potions:crystal_32", {
-	description = "Crystal",
-	paramtype = "light",
-	paramtype2 = "facedir",
-	drawtype = "nodebox",
-	tiles = {"default_mese.png"},
-	node_box = {
-		type = "fixed",
-		fixed = {
-			{-.5, -.5, -.5, 0.5, -.4, 0.5},
-			{-.5, -.5, -.5, -.4, 0.5, 0.5},
-			{ .4, -.5, -.5, 0.5, 0.5, 0.5},
+		groups = {cracky=3, geode_wall = 1 },
+	})
+	
+	minetest.register_node("potions:geode_"..name.."_32", {
+		description = desc,
+		paramtype = "light",
+		paramtype2 = "facedir",
+		drawtype = "nodebox",
+		tiles = tiles,
+		drops = drops .. " 3",
+		node_box = {
+			type = "fixed",
+			fixed = {
+				{-.5, -.5, -.5, 0.5, -.4, 0.5},
+				{-.5, -.5, -.5, -.4, 0.5, 0.5},
+				{ .4, -.5, -.5, 0.5, 0.5, 0.5},
+			},
 		},
-	},
-	groups = {cracky=3, geode_wall = 1 },
-})
-minetest.register_node("potions:crystal_4", {
-	description = "Crystal",
-	paramtype = "light",
-	paramtype2 = "facedir",
-	drawtype = "nodebox",
-	tiles = {"default_mese.png"},
-	node_box = {
-		type = "fixed",
-		fixed = {
-			{-.5, -.5, -.5, 0.5, -.4, 0.5},
-			{-.5, -.5, -.5, -.4, 0.5, 0.5},
-			{-.5, -.5, -.5, 0.5, 0.5, -.4},
-			{ .4, -.5, -.5, 0.5, 0.5, 0.5},
+		groups = {cracky=3, geode_wall = 1 },
+	})
+	
+	minetest.register_node("potions:geode_"..name.."_4", {
+		description = desc,
+		paramtype = "light",
+		paramtype2 = "facedir",
+		drawtype = "nodebox",
+		tiles = tiles,
+		drops = drops .. " 4",
+		node_box = {
+			type = "fixed",
+			fixed = {
+				{-.5, -.5, -.5, 0.5, -.4, 0.5},
+				{-.5, -.5, -.5, -.4, 0.5, 0.5},
+				{-.5, -.5, -.5, 0.5, 0.5, -.4},
+				{ .4, -.5, -.5, 0.5, 0.5, 0.5},
+			},
 		},
-	},
-	groups = {cracky=3, geode_wall = 1 },
-})
-minetest.register_node("potions:crystal_42", {
-	description = "Crystal",
-	paramtype = "light",
-	paramtype2 = "facedir",
-	drawtype = "nodebox",
-	tiles = {"default_mese.png"},
-	node_box = {
-		type = "fixed",
-		fixed = {
-			{-.5, -.5, -.5, 0.5, -.4, 0.5},
-			{-.5, -.5, -.5, -.4, 0.5, 0.5},
-			{-.5,  .4, -.5, 0.5, 0.5, 0.5},
-			{ .4, -.5, -.5, 0.5, 0.5, 0.5},
+		groups = {cracky=3, geode_wall = 1 },
+	})
+	
+	minetest.register_node("potions:geode_"..name.."_42", {
+		description = desc,
+		paramtype = "light",
+		paramtype2 = "facedir",
+		drawtype = "nodebox",
+		tiles = tiles,
+		drops = drops .. " 4",
+		node_box = {
+			type = "fixed",
+			fixed = {
+				{-.5, -.5, -.5, 0.5, -.4, 0.5},
+				{-.5, -.5, -.5, -.4, 0.5, 0.5},
+				{-.5,  .4, -.5, 0.5, 0.5, 0.5},
+				{ .4, -.5, -.5, 0.5, 0.5, 0.5},
+			},
 		},
-	},
-	groups = {cracky=3, geode_wall = 1 },
-})
-minetest.register_node("potions:crystal_5", {
-	description = "Crystal",
-	paramtype = "light",
-	paramtype2 = "facedir",
-	drawtype = "nodebox",
-	tiles = {"default_mese.png"},
-	node_box = {
-		type = "fixed",
-		fixed = {
-			{-.5, -.5, -.5, 0.5, -.4, 0.5},
-			{-.5, -.5, -.5, -.4, 0.5, 0.5},
-			{-.5, -.5, -.5, 0.5, 0.5, -.4},
-			{ .4, -.5, -.5, 0.5, 0.5, 0.5},
-			{-.5,  .4, -.5, 0.5, 0.5, 0.5},
+		groups = {cracky=3, geode_wall = 1 },
+	})
+	
+	minetest.register_node("potions:geode_"..name.."_5", {
+		description = desc,
+		paramtype = "light",
+		paramtype2 = "facedir",
+		drawtype = "nodebox",
+		tiles = tiles,
+		drops = drops .. " 5",
+		node_box = {
+			type = "fixed",
+			fixed = {
+				{-.5, -.5, -.5, 0.5, -.4, 0.5},
+				{-.5, -.5, -.5, -.4, 0.5, 0.5},
+				{-.5, -.5, -.5, 0.5, 0.5, -.4},
+				{ .4, -.5, -.5, 0.5, 0.5, 0.5},
+				{-.5,  .4, -.5, 0.5, 0.5, 0.5},
+			},
 		},
-	},
-	groups = {cracky=3, geode_wall = 1 },
-})
-minetest.register_node("potions:crystal_6", {
-	description = "Crystal",
-	paramtype = "light",
-	paramtype2 = "facedir",
-	drawtype = "nodebox",
-	tiles = {"default_mese.png"},
-	node_box = {
-		type = "fixed",
-		fixed = {
-			{-.5, -.5, -.5, 0.5, 0.5, 0.5},
+		groups = {cracky=3, geode_wall = 1 },
+	})
+	
+	minetest.register_node("potions:geode_"..name.."_6", {
+		description = desc,
+		paramtype = "light",
+		paramtype2 = "facedir",
+		drawtype = "nodebox",
+		tiles = tiles,
+		drops = drops .. " 6",
+		node_box = {
+			type = "fixed",
+			fixed = {
+				{-.5, -.5, -.5, 0.5, 0.5, 0.5},
+			},
 		},
-	},
-	groups = {cracky=3, geode_wall = 1},
-})
-
+		groups = {cracky=3, geode_wall = 1},
+	})
+	
+end
 
 
 
@@ -260,21 +306,7 @@ local function orient_geode_wall(pos)
 		minetest.swap_node(pos, {name="potions:crystal_"..od.n, param2 = od.o})
 	end
 end
-minetest.register_node("potions:crystal_1", {
-	description = "Crystal",
-	paramtype = "light",
-	paramtype2 = "facedir",
-	drawtype = "nodebox",
-	tiles = {"default_mese.png"},
-	node_box = {
-		type = "fixed",
-		fixed = {
-			{-.5, -.5, -.5, 0.5, -.4, 0.5}
-		},
-	},
-	groups = {cracky=3, geode_wall = 1 },
-	on_construct = function(pos) orient_geode_wall(pos) end,
-})
+
 
 
 minetest.register_abm({
@@ -329,6 +361,11 @@ minetest.register_lbm({
 	nodenames = "potions:geode_seed",
 	run_at_every_load = false,
 ]]
+
+local function pow(base, p) 
+	return math.exp(p * math.log(base))
+end
+
 minetest.register_abm({
 	name = "potions:geode_grow",
 	nodenames = "potions:geode_seed",
@@ -336,9 +373,16 @@ minetest.register_abm({
 	interval = 2,
 	action = function(pos, node)
 		
--- 		local r = math.random(3) + 1
-		local r = 1.5
-		local r2 = r+1
+		local w = math.random(4) == 1
+		
+		
+		local a = math.random(500)
+		
+		local r = math.min(20, pow((a / 431), 63) / 1160) + .1
+		
+-- 		local r = (math.random(50)) / math.log(50)) + 1
+-- 		local r = 1.5
+		local r2 = math.ceil(r+1)
 		
 		for x = pos.x-r2,pos.x+r2,1 do
 		for y = pos.y-r2,pos.y+r2,1 do
@@ -351,14 +395,18 @@ minetest.register_abm({
 			local dd = d - r
 			
 			if dd <= -.5 then
-				minetest.set_node(p, {name = "default:river_water_source"})
+				if w then
+					minetest.set_node(p, {name = "default:river_water_source"})
+				else
+					minetest.set_node(p, {name = "air"})
+				end
 			elseif dd < 1 then
 				minetest.set_node(p, {name = "potions:geode_wall"})
 				minetest.get_node_timer(p):start(1)
-			elseif dd <= 1.5 then
-				minetest.set_node(p, {name = "default:obsidian_glass"})
-			else
+			elseif dd <= 1.8 then
 				minetest.set_node(p, {name = "default:stone"})
+			else
+-- 				minetest.set_node(p, {name = "default:stone"})
 			end
 		end
 		end

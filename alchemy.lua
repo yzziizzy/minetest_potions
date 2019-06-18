@@ -430,12 +430,17 @@ minetest.register_craftitem("potions:wand", {
 	stack_max = 5,
 	on_use = function(itemstack, user, pointed_thing)
 		
-		local pos = pointed_thing.under
-		
-		local name, def = find_layout(pos)
-		if name then
-			execute_alchemy(pos, def, user)
+		if potions.get_manna(user) > 20 then
+				
+			local pos = pointed_thing.under
 			
+			local name, def = find_layout(pos)
+			if name then
+				
+				execute_alchemy(pos, def, user)
+				
+				potions.add_manna(user, -15)
+			end
 		end
 		
 	end,
