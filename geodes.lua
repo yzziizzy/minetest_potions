@@ -315,7 +315,7 @@ minetest.register_abm({
 	chance = 1,
 	interval = 10,
 	action = function(pos, node)
-		orient_geode_wall(pos)
+-- 		orient_geode_wall(pos)
 	end
 })
 
