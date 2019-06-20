@@ -12,6 +12,7 @@ local modpath = minetest.get_modpath("potions")
 local modname = "potions"
 
 
+dofile(modpath.."/minetunnels.lua")
 dofile(modpath.."/hotsprings.lua")
 dofile(modpath.."/beanstalk.lua")
 dofile(modpath.."/enchanting.lua")
@@ -160,7 +161,7 @@ emerald, ruby, lapis lazuli, opal, sapphire, citrine, aquamarine, amethyst
 
 
 
-
+fumaroles
 
 magic beanstalk
 arching bridge
