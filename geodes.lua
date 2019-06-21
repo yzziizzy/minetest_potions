@@ -464,6 +464,7 @@ potions.register_geode("quartz", {
 })
 
 
+
 minetest.register_craftitem("potions:smoky_quartz_crystal", {
 	description = "Smoky Quartz Crystal",
 	inventory_image = "potions_smoky_quartz_crystal.png",
@@ -497,6 +498,10 @@ potions.register_geode("epidote", {
 })
 ]]
 
+minetest.register_craftitem("potions:emerald_gem", {
+	description = "Emerald Gem",
+	inventory_image = "potions_emerald_gem.png",
+})
 minetest.register_craftitem("potions:emerald_crystal", {
 	description = "Emerald Crystal",
 	inventory_image = "potions_emerald_crystal.png",
@@ -509,6 +514,10 @@ potions.register_geode("emerald", {
 
 
 
+minetest.register_craftitem("potions:ruby_gem", {
+	description = "Ruby Gem",
+	inventory_image = "potions_ruby_gem.png",
+})
 minetest.register_craftitem("potions:ruby_crystal", {
 	description = "Ruby Crystal",
 	inventory_image = "potions_ruby_crystal.png",
@@ -520,6 +529,10 @@ potions.register_geode("ruby", {
 })
 
 
+minetest.register_craftitem("potions:sapphire_gem", {
+	description = "Sapphire Gem",
+	inventory_image = "potions_sapphire_gem.png",
+})
 minetest.register_craftitem("potions:sapphire_crystal", {
 	description = "Sapphire Crystal",
 	inventory_image = "potions_sapphire_crystal.png",
@@ -532,6 +545,10 @@ potions.register_geode("sapphire", {
 
 
 
+minetest.register_craftitem("potions:garnet_gem", {
+	description = "Garnet Gem",
+	inventory_image = "potions_garnet_gem.png",
+})
 minetest.register_craftitem("potions:garnet_crystal", {
 	description = "Garnet Crystal",
 	inventory_image = "potions_garnet_crystal.png",
@@ -544,6 +561,10 @@ potions.register_geode("garnet", {
 
 
 
+minetest.register_craftitem("potions:zircon_gem", {
+	description = "Zircon Gem",
+	inventory_image = "potions_zircon_gem.png",
+})
 minetest.register_craftitem("potions:zircon_crystal", {
 	description = "Zircon Crystal",
 	inventory_image = "potions_zircon_crystal.png",

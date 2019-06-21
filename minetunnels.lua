@@ -1,4 +1,70 @@
 
+--[[
+
+torches
+loot
+doors
+traps
+mining side-tunnels
+minerals embedded in walls
+cave-ins 
+signs
+
+fancy exterior entrance
+
+]]
+
+
+
+
+
+
+
+
+minetest.register_node("potions:trap_floor", {
+	description = "Trap Floor",
+	drawtype = "node",
+	tiles = {"default_stone_brick.png"},
+	groups = {cracky=3,},
+})
+
+
+local function trigger_trap(pos)
+	local n = minetest.get_node(pos)
+	if not n or n.name ~= "potions:trap_floor" then
+		return
+	end
+	
+	minetest.swap_node(pos, {name="default:stonebrick"})
+	minetest.spawn_falling_node(pos)
+	
+	minetest.after(.3, trigger_trap, {x=pos.x-1, y=pos.y, z=pos.z})
+	minetest.after(.3, trigger_trap, {x=pos.x+1, y=pos.y, z=pos.z})
+	minetest.after(.3, trigger_trap, {x=pos.x, y=pos.y, z=pos.z+1})
+	minetest.after(.3, trigger_trap, {x=pos.x, y=pos.y, z=pos.z-1})
+	
+end
+
+minetest.register_abm({
+	nodenames = {"potions:trap_floor"},
+	interval = 3,
+	chance = 10,
+	action = function(pos)
+		local objs = minetest.get_objects_inside_radius(pos, 4)
+		local found = false
+		
+		for _,o in ipairs(objs) do
+			if o:is_player() then
+				found = true
+				break
+			end
+		end
+		
+		if found then
+			trigger_trap(pos)
+		end
+	end,
+})
 
 
 minetest.register_node("potions:minetunnel_seed", {
@@ -68,12 +134,8 @@ print('buildign tunnel at '..dump(pos))
 				y = pos.y - y,
 				z = pos.z + (z-w-1)*dir.x + x*dir.z
 			}
-			local rot = nil
-			if floor_rot then
-				rot = minetest.dir_to_facedir({x=-dir.x,y=0,z=-dir.z})
-			end
 			
-			tunnel_stack(p, props.tunnel_height, props.nodes.floor, props.nodes.ceiling, rot)
+			tunnel_stack(p, props.tunnel_height, props.nodes.floor, props.nodes.ceiling, floor_rot)
 			
 			
 			if props.railpos and props.railpos == z then
@@ -113,13 +175,11 @@ local function build_descending_entrance(pos, dir, depth_into_stone, props)
 			}
 			
 			
-			
 			if props.railpos and props.railpos == z then
-				tunnel_stack(p, 5, props.nodes.floor, props.nodes.ceiling, rot)
+				tunnel_stack(p, 5, props.nodes.floor, props.nodes.ceiling, floor_rot)
 				minetest.set_node(p, {name=props.nodes.rail})
 			else
 				tunnel_stack(p, 5, props.nodes.stair, props.nodes.ceiling, floor_rot)
-				
 			end
 		end
 		
@@ -133,6 +193,61 @@ local function build_descending_entrance(pos, dir, depth_into_stone, props)
 end
 
 
+local function build_room(entrance_pos, dir, props)
+
+
+
+
+end
+
+
+
+local function build_junction(pos, dirs, props)
+	
+	-- TODO: replace tunnel_stack with something that doesn't destroy rail 
+	--    so this fn can be called on existing junctions
+	
+	local z, x
+
+	local width = props.tunnel_width
+	local w = math.floor(width / 2)
+	
+	-- hollow out the cavity
+	for z = 1,width do
+		for x = 1,width do
+			
+			local p = {
+				x = pos.x + (x-w-1)*dir.x + (z-w-1)*dir.z,
+				y = pos.y + 2,
+				z = pos.z + (z-w-1)*dir.x + (x-w-1)*dir.z
+			}
+			
+			set_column(p, height - 2, "air")
+
+			minetest.set_node({x=p.x, y=pos.y, z=p.z}, props.nodes.floor)
+	
+			brace_ceiling({x=p.x, y=pos.y+props.tunnel_height, z=p.z}, props.nodes.ceiling)
+		end
+	end
+	
+	for k,v in pairs(dirs) do
+		-- install rails
+		for z = w,width do
+			for x = w,width do
+		
+				minetest.set_node({
+					x=pos.x + v.x*x + v.z*z, 
+					y=pos.y+1, 
+					z=pos.z + v.z*x + v.x*z
+				}, props.nodes.rail)
+			end
+		end
+		
+	end
+	
+end
+
+
 local function random_dir()
 	local d = {
 		{x=1, z=0},
@@ -141,6 +256,24 @@ local function random_dir()
 		{x=0, z=-1},
 	}
 	return d[math.random(4)]
+end
+
+local function random_perpendicular(dir)
+	local d
+	
+	if dir.x == 0 then
+		d = {
+			{x=1, z=0},
+			{x=-1, z=0},
+		}
+	else
+		d = {
+			{x=0, z=1},
+			{x=0, z=-1},
+		}
+	end
+	
+	return d[math.random(2)]
 end
 
 local function build_mine(pos, props)
@@ -161,17 +294,24 @@ local function build_mine(pos, props)
 			props
 		)
 	print("1")
-	local p3 = build_tunnel(
-		p2, 
-		props.primary_dir, 
-		props.min_tunnel_len + math.random(props.max_tunnel_len - props.min_tunnel_len), 
-		props
-	)
+	local p3 = p2
+	local last_dir = props.primary_dir
+	
+	for i = 1,4 do
+		p3 = build_tunnel(
+			p3, 
+			last_dir,
+			props.min_tunnel_len + math.random(props.max_tunnel_len - props.min_tunnel_len), 
+			props
+		)
+		last_dir = random_perpendicular(last_dir)
+	
+	end
 		
 	print("2")
 	local p4 = build_descending_entrance(
 			p3, 
-			props.primary_dir,
+			last_dir,
 			props.tunnel_height + 2 + math.random(10),
 			props
 		)
@@ -197,11 +337,11 @@ local function build_minetunnel(pos)
 			chest = "default:chest",
 		},
 		
-		min_mine_depth = 10,
+		min_mine_depth = 15,
 		max_mine_depth = 50,
 		
-		min_tunnel_len = 10,
-		max_tunnel_len = 40,
+		min_tunnel_len = 6,
+		max_tunnel_len = 10,
 		
 		tunnel_width = 3,
 		tunnel_height = 4,
@@ -210,7 +350,7 @@ local function build_minetunnel(pos)
 		
 		torch_chance = 50,
 		
-		railpos = 1,
+		railpos = 2,
 	}
 	
 	
