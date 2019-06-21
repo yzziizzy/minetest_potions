@@ -1,4 +1,16 @@
 
+
+
+
+
+
+
+
+
+
+
+
+
 local function vadd(a, b)
 	return {
 		x = (a.x or 0) + (b.x or 0),
@@ -475,6 +487,78 @@ minetest.register_craftitem("potions:book_silver_snake", {
 
 
 
+
+
+minetest.register_node("potions:cauldron", {
+	description = "Cauldron",
+	paramtype = "light",
+	paramtype2 = "facedir",
+	drawtype = "nodebox",
+	tiles = {"default_steel_block.png^[colorize:black:160"},
+	node_box = {
+		type = "fixed",
+		fixed = {
+			{-.45, .45, -.45, 0.45, .5, 0.45},
+			{-.5, -.3, -.5, 0.5, .3, 0.5},
+			{-.4, -.4, -.4, 0.4, .45, 0.4},
+			{-.3, -.5, -.3, 0.3, -.4, 0.3},
+		},
+	},
+	groups = {cracky=3,},
+	on_construct = function(pos) 
+		local meta = minetest.get_meta(pos)
+		local inv = meta:get_inventory();
+		
+		inv:set_size("main", 4*4)
+	
+		local formspec =
+			"size[8,9]" ..
+			"list[current_name;main;2,0.3;4,4;]" ..
+			"list[current_player;main;0,4.85;8,1;]" ..
+			"list[current_player;main;0,6.08;8,3;8]" ..
+			"listring[nodemeta:" .. spos .. ";main]" ..
+			"listring[current_player;main]" ..
+			default.get_hotbar_bg(0,4.85)
+		
+		meta:set_string("formspec", formspec)
+	end,
+	
+	can_dig = function(pos, player)
+		local meta = minetest.get_meta(pos);
+		local inv = meta:get_inventory()
+		return inv:is_empty("main")
+	end,
+
+	on_rightclick = function(pos, node, clicker, itemstack, pointed_thing)
+		-- take water out of bucket
+	end,
+	
+	allow_metadata_inventory_put = function(pos, listname, index, stack, player)
+		return stack:get_count()
+	end,
+	allow_metadata_inventory_take = function(pos, listname, index, stack, player)
+		return stack:get_count()
+	end,
+	
+})
+
+minetest.register_node("potions:still", {
+	description = "Still",
+	paramtype = "light",
+	paramtype2 = "facedir",
+	drawtype = "nodebox",
+	tiles = {"default_copper_block.png"},
+	node_box = {
+		type = "fixed",
+		fixed = {
+			{-.45, -5, -.45, 0.45, -.45, 0.45},
+			{-.1, -.45, -.1, 0.1, .4, 0.1},
+			{-.1, .3, -.1, 1.1, .4, 0.1},
+			{1.1, -.5, -.1, .9, .4, .1},
+		},
+	},
+	groups = {cracky=3,},
+})
 
 
 

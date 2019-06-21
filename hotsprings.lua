@@ -345,9 +345,11 @@ minetest.register_abm({
 	chance = 180,
 	interval = 30,
 	action = function(pos, node)
-		local p = minetest.find_node_near(pos, 1, "air")
-		if p then
-			minetest.set_node(p, {name="potions:sulphur_deposit_1"})
+		-- TODO: place sulphur on sides too
+		pos.y = pos.y + 1
+		local n = minetest.get_node(pos)
+		if n.name == "air" then
+			minetest.set_node(pos, {name="potions:sulphur_deposit_1"})
 		end
 	end
 })
