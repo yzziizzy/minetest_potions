@@ -485,7 +485,7 @@ potions.register_geode("amethyst", {
 	tiles = "default_diamond_block.png^[colorize:purple:60"
 })
 
-
+--[[
 minetest.register_craftitem("potions:epidote_crystal", {
 	description = "Epidote Crystal",
 	inventory_image = "potions_epidote_crystal.png",
@@ -495,7 +495,7 @@ potions.register_geode("epidote", {
 	drops = "potions:epidote_crystal",
 	tiles = "default_diamond_block.png^[colorize:green:220^[colorize:black:120"
 })
-
+]]
 
 minetest.register_craftitem("potions:emerald_crystal", {
 	description = "Emerald Crystal",
