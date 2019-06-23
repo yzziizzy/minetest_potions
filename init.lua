@@ -12,12 +12,64 @@ local modpath = minetest.get_modpath("potions")
 local modname = "potions"
 
 
+dofile(modpath.."/metals.lua")
+dofile(modpath.."/rocks.lua")
 dofile(modpath.."/minetunnels.lua")
 dofile(modpath.."/hotsprings.lua")
 dofile(modpath.."/beanstalk.lua")
 dofile(modpath.."/enchanting.lua")
 dofile(modpath.."/geodes.lua")
 dofile(modpath.."/alchemy.lua")
+
+
+
+--[[
+fermentation, distillation, soaking/boiling pot
+glass crafting furnace
+
+
+ink, black/gold/silver/red
+ethanol, methanol
+ammonia
+saltpeter, halite, iron(II) sulfate aka green vitriol (melanterite), soda nitre, pot ash
+pyrite
+iodine (from seaweed)
+
+green alchemist's fire that ignites on and burns water
+
+extra metals:
+silver, lead, platinum, rhodium, arsenic, bismuth, mercury, iridium, osmium, zinc
+
+gems:
+lapis lazuli, opal, citrine, aquamarine
+
+
+
+fumaroles
+
+rock outcroppings in the desert similar to joshua tree
+joshua trees (connected node)
+
+magic beanstalk
+arching bridge
+fancy tower
+summon a ziggurat (player is flung into the air while it spawns underneath)
+
+
+chemistry glassware getting used or consumed
+brown version of glassware
+fancier glassware needed for fancier chemicals
+some chemicals are light-sensitive and are ruined or explode if in bright light
+some chemicals explode if heated
+
+ancient artifacts
+
+volcanic hotsprings
+minetunnels a la mobehavior with geodes
+
+pentagram on enchanting table top
+higher level enchanting tables
+]]
 
 
 
@@ -142,38 +194,6 @@ potions.set_max_manna = function(player, amt)
 	update_player_manna(potions_players[player:get_player_name()], 0)
 end
 
-
---[[
-fermentation, distillation, soaking/boiling pot
-
-ink, black/gold/silver/red
-ethanol, methanol
-ammonia
-saltpeter, halite, iron(II) sulfate aka green vitriol (melanterite), soda nitre, pot ash
-pyrite
-sulfur, iodine
-
-extra metals:
-silver, lead, platinum, rhodium, arsenic, bismuth, mercury, iridium, osmium
-
-gems:
-emerald, ruby, lapis lazuli, opal, sapphire, citrine, aquamarine, amethyst
-
-
-
-fumaroles
-
-magic beanstalk
-arching bridge
-
-
-
-volcanic hotsprings
-minetunnels a la mobehavior with geodes
-
-pentagram on enchanting table top
-higher level enchanting tables
-]]
 
 
 minetest.register_craftitem("potions:holy_water", {

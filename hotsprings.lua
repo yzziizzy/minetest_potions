@@ -244,8 +244,8 @@ end
 
 minetest.register_abm({
 	nodenames = "potions:hotspring_water_source",
-	chance = 1,
-	interval = 50,
+	chance = 60,
+	interval = 5,
 	action = function(pos, node)
 			minetest.add_particlespawner({
 				amount = 1,

@@ -9,7 +9,14 @@ mining side-tunnels
 minerals embedded in walls
 cave-ins 
 signs
+poisonous or explosive mine gasses
 
+room types:
+	barracks, with beds
+	dining hall, kitchen
+	ore storage room
+	chemistry lab
+	
 fancy exterior entrance
 
 ]]
@@ -67,6 +74,21 @@ minetest.register_abm({
 })
 
 
+minetest.register_node("potions:trap_seed", {
+	description = "Trap seed",
+	drawtype = "node",
+	tiles = {"default_mese.png"},
+	groups = {cracky=3,},
+	on_construct = function(pos)
+		potions.build_trap_below(
+			{x=pos.x-4, y=pos.y-5, z=pos.z-6},
+			{x=pos.x+4, y=pos.y-1, z=pos.z+6},
+			1, 1, "default:river_water_source"
+		)
+	end,
+})
+
+
 minetest.register_node("potions:minetunnel_seed", {
 	description = "Minetunnel seed",
 	drawtype = "node",
@@ -108,6 +130,47 @@ local function tunnel_stack(pos, height, bottom, top, rot)
 	
 	brace_ceiling({x=pos.x, y=pos.y+height-1, z=pos.z}, top)
 end
+
+
+
+function potions.build_trap_below(minp, maxp, fall_depth, lava_depth, lava_node)
+	
+	-- set the floor
+	for x = minp.x,maxp.x do
+	for z = minp.z,maxp.z do
+		minetest.set_node({x=x, y=maxp.y, z=z}, {name="potions:trap_floor"})
+	end
+	end
+	
+	-- empty space underneath
+	local y = maxp.y-1
+	while y > maxp.y-fall_depth-1 do
+		
+		for x = minp.x,maxp.x do
+		for z = minp.z,maxp.z do
+			minetest.set_node({x=x, y=y, z=z}, {name="air"})
+		end
+		end
+		
+		y=y-1
+	end
+	
+	-- lava pool
+	while y > maxp.y-fall_depth-1-lava_depth do
+		
+		for x = minp.x,maxp.x do
+		for z = minp.z,maxp.z do
+			minetest.set_node({x=x, y=y, z=z}, {name=lava_node})
+		end
+		end
+		
+		y=y-1
+	end
+	
+	-- TODO: container for lava
+end
+
+
 
 
 
@@ -258,6 +321,23 @@ local function random_dir()
 	return d[math.random(4)]
 end
 
+local function random_new_dir(olddir)
+	local d = {
+		{x=1, z=0},
+		{x=-1, z=0},
+		{x=0, z=1},
+		{x=0, z=-1},
+	}
+	local i = math.random(4)
+	local a = d[i]
+	
+	if a.x == olddir.x and a.z == olddir.z then
+		a = d[((i + 1) % 4) + 1]
+	end
+	
+	return a
+end
+
 local function random_perpendicular(dir)
 	local d
 	
@@ -323,6 +403,113 @@ local function build_mine(pos, props)
 end
 
 
+local function mf(x, n)
+	return math.floor(x / n)
+end
+
+
+
+local function vdadd(pos, dir, length)
+	return {
+		x = pos.x + (dir.x * length),
+		y = pos.y,
+		z = pos.z + (dir.z * length),
+	}
+end
+
+local function build_mine_maze(pos, o)
+	
+	local q = 0
+	
+	local data = {
+		stack = {},
+		log = {},
+	}
+	
+	
+	local function encode(pos)
+		return "x"..mf(pos.x,2).."y"..mf(pos.y,2).."z"..mf(pos.z,2)
+	end
+	
+	
+	local function do_run(pos, dir, length)
+		local n = vector.add(pos, 0)
+		for i = 1,length do
+			minetest.set_node(n, {name="default:cobble"})
+			n.x = n.x + dir.x
+			n.z = n.z + dir.z
+			n.y = n.y + (dir.y or 0)
+		end
+		
+		return n
+	end
+	
+	
+	local function direction_ok(pos, dir, length)
+		local e = encode(vdadd(pos, dir, length))
+		local g = data.log[e]
+		
+		return g == nil
+	end
+	
+	
+	table.insert(data.stack, {
+		n = {x=pos.x, y=pos.y-1, z=pos.z},
+		dir = {x=1, z=0},
+	})
+	
+	while q < 10 do
+		
+		local n = table.remove(data.stack, 1)
+		if n == nil then
+			break
+		end
+		
+		local e = encode(n.n)
+		
+		local g = data.log[e]
+		data.log[e] = 1
+		
+		if g == nil then
+			
+			local n2 = do_run(n.n, n.dir, 10) 
+			local newdir = n.dir
+			for i = 1,3 do
+				newdir = random_new_dir(newdir)
+				
+				if direction_ok(n2, newdir, 10) then
+					table.insert(data.stack, {
+						n = n2,
+						dir = newdir
+					})
+					
+					break
+				elseif math.random(2) == 2 then
+					table.insert(data.stack, {
+						n = {x=n2.x, y=n2.y+1, z=n2.z},
+						dir = newdir
+					})
+					break
+				end
+			end
+-- 			minetest.set_node(n.n, {name="default:cobble"})
+			
+-- 			if math.random(20) < 19 then table.insert(data.stack, {x=n.x+2, y=n.y, z=n.z}) end
+-- 			if math.random(20) < 19 then table.insert(data.stack, {x=n.x-2, y=n.y, z=n.z}) end
+-- 			if math.random(20) < 3 then table.insert(data.stack, {x=n.x, y=n.y, z=n.z+2}) end
+-- 			if math.random(20) < 3 then table.insert(data.stack, {x=n.x, y=n.y, z=n.z-2}) end
+			
+		end
+		
+		
+		q = q + 1
+	end
+	
+	
+	
+end
+
+
 
 local function build_minetunnel(pos)
 	
@@ -368,6 +555,15 @@ end
 
 
 
+minetest.register_node("potions:maze_seed", {
+	description = "Maze seed",
+	drawtype = "node",
+	tiles = {"default_mese.png"},
+	groups = {cracky=3,},
+	on_construct = function(pos)
+		build_mine_maze({x=pos.x, y=pos.y-1, z=pos.z})
+	end,
+})
 
 
 minetest.register_abm({

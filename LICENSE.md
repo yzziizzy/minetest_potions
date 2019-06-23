@@ -1,3 +1,8 @@
+Some Images have other copyrights and licenses. See image metadata for more information.
+
+Otherwise:
+-----------------------------------------------------------------------
+
   DO WHAT THE FUCK YOU WANT TO PUBLIC LICENSE 
                     Version 2, December 2004 
 
