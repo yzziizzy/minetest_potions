@@ -15,18 +15,29 @@ local function random_pos(pos, dist)
 	
 	while p.y > pos.y - dist do
 		local n = minetest.get_node(p)
-		if n.name ~= "air" then
+		if n.name ~= "air" and n.name ~= "ignore" then
 			return p
 		end
 		
 		p.y = p.y - 1
 	end
 	
-	return p
+	return nil
 end
 
-local function spawn_rock(pos, node)
+local function spawn_rock(pos, nodes)
+	if pos == nil then
+		return
+	end
 	pos.y = pos.y + 2
+	
+	local ns = {}
+	for name,chance in pairs(nodes) do
+		for i = 1,chance do
+			table.insert(ns, name)
+		end
+	end
+	
 
 	local r = math.random() * 1.1 + .3
 	local stry = math.random(6) + 1
@@ -55,7 +66,7 @@ local function spawn_rock(pos, node)
 		local dd = d - r
 		
 		if dd <= 1 then
-			minetest.set_node(p, {name=node})
+			minetest.set_node(p, {name=ns[math.random(#ns)]})
 		else
 -- 				minetest.set_node(p, {name = "default:stone"})
 		end
@@ -65,6 +76,37 @@ local function spawn_rock(pos, node)
 end
 
 
+local seed_biomes = {
+	["default:sand"] = {
+		{
+			["default:desert_stone"] = 7, 
+			["potions:sphalerite_ore"] = 1, 
+		},
+	},
+	["default:desert_sand"] = {
+		{
+			["default:sandstone"] = 7, 
+			["potions:cinnabar_ore"] = 1, 
+		},
+		{
+			["default:sandstone"] = 5, 
+			["potions:cinnabar_ore"] = 1, 
+		},
+		
+	},
+	["default:silver_sand"] = {
+		{
+			["default:stone"] = 7, 
+			["potions:galena"] = 1, 
+		},
+	},
+
+}
+
+
+
+
+
 minetest.register_node("potions:rock_seed", {
 	description = "Rock Seed",
 	tiles = {"default_sandstone.png^default_tool_bronzepick.png"},
@@ -72,11 +114,61 @@ minetest.register_node("potions:rock_seed", {
 	sounds = default.node_sound_stone_defaults(),
 	
 	on_construct = function(pos)
+		minetest.get_node_timer(pos):start(1)
+	end,
+	
+	on_timer = function(pos)
 		minetest.set_node(pos, {name="air"})
 		
-		for i = 1,(math.random(12) + 4) do
-			spawn_rock(random_pos(pos, 30), "default:sandstone")
+-- 		if 1 ~= math.random(10) then
+-- 			return
+-- 		end
+		print("rock seed")
+		local p = minetest.find_node_near(pos, 4, {"default:sand", "default:desert_sand", "default:silver_sand"})
+		local n = minetest.get_node(p)
+		print(dump(n.name))
+		local b = seed_biomes[n.name]
+		if not b then return end
+		print("b")
+		
+		for i = 1,(math.random(1) + 0) do
+			spawn_rock(random_pos(pos, math.random(20) + 20), b[1])
 		end
 		
 	end,
 })
+
+
+minetest.register_abm({
+	nodenames = "potions:rock_seed",
+	chance = 1,
+	interval = 5,
+	action = function(pos, node)
+		minetest.get_node_timer(pos):start(2)
+	end
+})
+
+
+minetest.register_decoration({
+	name = "potions:rock_seed",
+	deco_type = "simple",
+	place_on = {"default:desert_sand", "default:silver_sand", "default:sand",},
+	place_offset_y = 1,
+	sidelen = 16,
+	noise_params = {
+		offset = -0.0105,
+		scale = 0.01,
+		spread = {x = 200, y = 200, z = 200},
+		seed = 29724537,
+		octaves = 3,
+		persist = 0.7,
+	},
+	biomes = {"desert", "cold_desert", "sandstone_desert"},
+	y_max = 1000,
+	y_min = 5,
+	place_offset_y = 1,
+	decoration = "potions:rock_seed",
+	flags = "force_placement",
+})
+
+

@@ -194,3 +194,77 @@ minetest.register_node("potions:cinnabar_ore", {
 
 -- mercury can't be cooked, it has to be distilled
 
+
+
+
+
+
+
+
+
+
+
+
+minetest.register_ore({
+	ore_type        = "blob",
+	ore             = "potions:sphalerite_ore",
+	wherein         = {"default:desert_sandstone"},
+	clust_scarcity  = 16 * 16 * 16,
+	clust_size      = 5,
+	y_max           = 82,
+	y_min           = 25,
+	noise_threshold = -0.0,
+	noise_params    = {
+		offset = 0.5,
+		scale = 0.2,
+		spread = {x = 5, y = 5, z = 5},
+		seed = 5776,
+		octaves = 1,
+		persist = 0.0
+	},
+	biomes = {"desert"},
+})
+
+minetest.register_ore({
+	ore_type        = "blob",
+	ore             = "potions:cinnabar_ore",
+	wherein         = {"default:sandstone"},
+	clust_scarcity  = 16 * 16 * 16,
+	clust_size      = 5,
+	y_max           = 82,
+	y_min           = 30,
+	noise_threshold = -0.0,
+	noise_params    = {
+		offset = 0.5,
+		scale = 0.2,
+		spread = {x = 5, y = 5, z = 5},
+		seed = 2467,
+		octaves = 1,
+		persist = 0.0
+	},
+	biomes = {"sandstone_desert"},
+})
+
+
+
+
+minetest.register_ore({
+	ore_type        = "scatter",
+	ore             = "potions:galena",
+	wherein         = {"default:silver_sandstone"},
+	clust_scarcity  = 16 * 16 * 16,
+	clust_num_ores  = 12,
+	clust_size      = 5,
+	y_max           = 62,
+	y_min           = 15,
+	noise_threshold = 0.0,
+	noise_params    = {
+		offset = 0.5,
+		scale = 0.2,
+		spread = {x = 5, y = 5, z = 5},
+		seed = 27636,
+		octaves = 1,
+		persist = 0.0
+	},
+	biomes = {"cold_desert"},
+})

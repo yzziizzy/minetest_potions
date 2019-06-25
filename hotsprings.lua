@@ -24,8 +24,53 @@ minetest.register_node("potions:sulphur_deposit_1", {
 	groups = {cracky=3, geode_wall = 1 },
 })
 
-	
-	
+
+minetest.register_node("potions:fumarole", {
+	description = "Fumarole",
+	paramtype = "light",
+	paramtype2 = "facedir",
+	drawtype = "nodebox",
+	tiles = {"default_stone.png^[colorize:black:10"},
+	drop = 'default:cobble',
+	damage_per_second = 3,
+	node_box = {
+		type = "fixed",
+		fixed = {
+			{-.4, -.5, -.4, 0.3, -.4, 0.3},
+			{-.3+.05, -.4, -.3+.05, 0.2+.05, -.3, 0.2+.05},
+			{-.2+.08, -.3, -.2+.08, 0.1+.08, -.2, 0.1+.08},
+		},
+	},
+	groups = {cracky=3, },
+})
+
+
+
+minetest.register_abm({
+	nodenames = "potions:fumarole",
+	chance = 1,
+	interval = 20,
+	action = function(pos, node)
+		pos.y = pos.y + 0
+		minetest.add_particlespawner({
+			amount = 20,
+			time = 20,
+			minpos = pos,
+			maxpos = pos,
+			minvel = {x=-0.1, y=.6, z=-0.1},
+			maxvel = {x=0.1,  y=1.6,  z=0.1},
+			minacc = {x=-0.1, y=.1, z=-0.1},
+			maxacc = {x=0.1, y=.1, z=0.1},
+			minexptime = 2.5,
+			maxexptime = 4.5,
+			minsize = 4.2,
+			maxsize = 5.2,
+			texture = "tnt_smoke.png",
+		})
+	end
+})
+
+
 
 minetest.register_node("potions:hotspring_water_source", {
 	description = "Hotspring Water Source",
@@ -403,7 +448,7 @@ minetest.register_decoration({
 	place_offset_y = 1,
 	sidelen = 16,
 	noise_params = {
-		offset = -0.005,
+		offset = -0.010,
 		scale = 0.01,
 		spread = {x = 200, y = 200, z = 200},
 		seed = 65645647,
