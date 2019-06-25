@@ -320,14 +320,18 @@ local function random_pos(pos, dist)
 	
 	while p.y > pos.y - dist do
 		local n = minetest.get_node(p)
-		if n.name ~= "air" then
+		if n.name ~= "air" and n.name ~= "ignore" then
+			if n.name == "default:water_source" or n.name == "default:water_flowing" then
+				return nil
+			end
+			
 			return p
 		end
 		
 		p.y = p.y - 1
 	end
 	
-	return p
+	return nil
 end
 
 
@@ -340,8 +344,14 @@ minetest.register_abm({
 		minetest.after(2, function()
 			minetest.set_node(pos, {name="air"})
 			
+			-- spawn with greater frequency the farther we get from the origin
+			local max_penalty = 20
+			local ramp_dist = 10000
+			local origind = math.sqrt(pos.x*pos.x + pos.z*pos.z)
+			local penalty = math.min(max_penalty, max_penalty * (1 - (origind / ramp_dist))) 
+			
 			-- random bail here
-			if math.random(10) > 1 then
+			if math.random(10 + penalty) > 1 then
 				return
 			end
 			
@@ -406,7 +416,7 @@ minetest.register_abm({
 	nodenames = {"group:stone", "group:dirt"},
 	neighbors = {"potions:hotspring_water_source", "potions:hotspring_water_flowing"},
 	chance = 80,
-	interval = 15,
+	interval = 10,
 	action = function(pos, node)
 		minetest.set_node(pos, {name=scalding_stones[math.random(#scalding_stones)]})
 	end
@@ -417,7 +427,7 @@ minetest.register_abm({
 	nodenames = "group:soil",
 	neighbors = {"group:scalding_stone"},
 	chance = 80,
-	interval = 15,
+	interval = 10,
 	action = function(pos, node)
 		minetest.set_node(pos, {name="default:stone"})
 	end
@@ -430,7 +440,7 @@ minetest.register_abm({
 	nodenames = {"default:snow", "default:snowblock"},
 	neighbors = {"potions:hotspring_water_source", "potions:hotspring_water_flowing"},
 	chance = 80,
-	interval = 15,
+	interval = 10,
 	action = function(pos, node)
 		minetest.set_node(pos, {name="air"})
 	end
@@ -461,5 +471,37 @@ minetest.register_decoration({
 	place_offset_y = 1,
 	decoration = "potions:hotspring_seed",
 	flags = "force_placement",
+})
+
+
+-- hotsprings boil rivers
+minetest.register_abm({
+	nodenames = {"default:river_water_source"},
+	neighbors = {"potions:hotspring_water_source", "potions:hotspring_water_flowing"},
+	chance = 5,
+	interval = 5,
+	action = function(pos, node)
+	
+		-- only spread downhill
+		local hw = minetest.find_nodes_in_area(
+			{x=pos.x-1, y=pos.y, z=pos.z-1},
+			{x=pos.x+1, y=pos.y+1, z=pos.z+1},
+			{"potions:hotspring_water_source", "potions:hotspring_water_flowing"})
+		
+		if not hw or #hw == 0 then
+			return
+		end
+		
+		-- don't spread under rivers
+		pos.y = pos.y + 1
+		local n = minetest.get_node(pos)
+		if n.name == "default:river_water_source" or n.name == "default:river_water_flowing" then
+			return
+		end
+		
+		pos.y = pos.y - 1
+		
+		minetest.set_node(pos, {name="potions:hotspring_water_source"})
+	end
 })
 

@@ -146,6 +146,7 @@ function potions.register_geode(name, opts)
 	potions.geodes[name] = {
 		name = name,
 		drops = drops,
+		rarity = opts.rarity or 5,
 	}
 	
 	minetest.register_node("potions:geode_"..name.."_1", {
@@ -344,16 +345,16 @@ function potions.register_geode(name, opts)
 		geode_name = name,
 	})
 	
--- 	minetest.register_ore({
--- 		ore_type       = "scatter",
--- 		ore            = "potions:geode_seed_"..name,
--- 		wherein        = opts.wherein or "default:stone",
--- 		clust_scarcity = 48 * 48 * 48,
--- 		clust_num_ores = 1,
--- 		clust_size     = 1,
--- 		y_max          = opts.y_min,
--- 		y_min          = opts.y_max,
--- 	})	
+	minetest.register_ore({
+		ore_type       = "scatter",
+		ore            = "potions:geode_seed_"..name,
+		wherein        = "air", --opts.wherein or "default:stone",
+		clust_scarcity = 48 * 48 * 48,
+		clust_num_ores = 1,
+		clust_size     = 1,
+		y_max          = opts.y_max or 100,
+		y_min          = opts.y_min or -34000,
+	})	
 	
 end
 
@@ -407,11 +408,21 @@ minetest.register_abm({
 		local def = minetest.registered_nodes[node.name]
 		local name = def.geode_name
 		
+		local yoff = math.min(math.max(-pos.y, 0), 1000) / 1000
+		local rarity = potions.geodes[name].rarity
+		
+		if math.random(rarity + 10 - math.floor(yoff*10)) > 1 then
+			minetest.set_node(pos, {name="air"})
+			return
+		end
+		
+		
+		
 		local w = math.random(4) == 1
 		
 		
 		-- most geodes are small, rare exponential size increase
-		local a = math.random(500)
+		local a = math.random(400 + yoff*100)
 		local r = math.min(20, pow((a / 431), 63) / 1160) + .1
 		
 -- 		local r = (math.random(50)) / math.log(50)) + 1

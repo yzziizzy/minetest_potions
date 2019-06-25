@@ -31,9 +31,56 @@ dofile(modpath.."/scanner.lua")
 
 
 --[[
-fermentation, distillation, soaking/boiling pot
-glass crafting furnace
+potions/magic
+	destroy all nodes in area of certain type (stone), leaving others
+	transform all nearby nodes into another node
+	underwater breathing
+	dig faster
+	loaves and fishes when placing nodes
+	summon a homunculus to provide knowledge
+	conjure more magic books
+	wards, ie area node protection
+	spawn ice crust on nearby water
+	scry for nearby things; particles lead the way
+	summon a storm
+	blight an area
+	accerate (certain) plant/fungus growth in an area
+	conjure a volcano
+		spawn magma node
+		forge-style movement
+		each move takes a time meta value along for cooling
+	conjure a meteor
+	freeze/thaw an area
+	conjure a coffer dam
+	conjure an island
+	conjure a floatland
+	conjure butterflies or fireflies
+	a spell with two areas that sucks life-force from one area and vents it to another
+	conjure a fully equipped wizard's tower
+	conjure a (fully equipped) castle
+	hollow a horizontal tunnel
+	some potions are thrown, to break and activate where they land
+		conjure a prison
+	effectively change biome
+	clone
+	
+	
+[engine]
+	stateless particle systems
+	custom particle shaders
+	above/below positional abms
+	on_craft callback
+	nodes that randomly emit particles on their own
+	particles that break into or emit more particles
+	mapgen "regions" or extra biome params ("magicness" or other such variations)
+	ore-ish registration that guarantees a certain limited number of spawns
+	mapgen distance-from-center params
 
+fermentation, distillation, soaking/boiling pot, ball mill
+glass crafting furnace
+need books to do certain spells
+
+"Apocryphon" - secret book
 
 ink, black/gold/silver/red
 ethanol, methanol
@@ -41,6 +88,9 @@ ammonia
 saltpeter, halite, iron(II) sulfate aka green vitriol (melanterite), soda nitre, pot ash
 pyrite
 iodine (from seaweed)
+fossils
+
+fireworks
 
 green alchemist's fire that ignites on and burns water
 
@@ -50,6 +100,7 @@ silver, lead, platinum, rhodium, arsenic, bismuth, mercury, iridium, osmium, zin
 gems:
 lapis lazuli, opal, citrine, aquamarine
 
+cyclopian masonry
 
 
 fumaroles spwaning, textures and features
@@ -61,6 +112,13 @@ prickly pear - polishing, spawning and fruit
 barrel cactus
 bamboo forests
 clover fields
+basalt outcroppings with mesh nodes 
+undersea sponges
+undersea volcanic vents
+deep-sea worms
+thornbushes
+blighted areas, purple miasma, dead plants, etc
+
 
 magic beanstalk
 arching bridge
@@ -86,9 +144,18 @@ fancier glassware needed for fancier chemicals
 some chemicals are light-sensitive and are ruined or explode if in bright light
 some chemicals explode if heated
 
+can place potions bottles on the ground
+
+enchant tools
+	can only dig certain nodes
+	explode and damage player if used to dig certain nodes
+	only works below ground/above ground
+	
+
 ancient artifacts
 
 volcanic hotsprings
+geysers
 minetunnels a la mobehavior with geodes
 
 pentagram on enchanting table top
