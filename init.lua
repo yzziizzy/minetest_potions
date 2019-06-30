@@ -17,6 +17,7 @@ dofile(modpath.."/metals.lua")
 dofile(modpath.."/geodes.lua")
 dofile(modpath.."/hotsprings.lua")
 dofile(modpath.."/structures/ziggurat.lua")
+dofile(modpath.."/structures/coffer_dam.lua")
 
 -- core
 dofile(modpath.."/minetunnels.lua")
