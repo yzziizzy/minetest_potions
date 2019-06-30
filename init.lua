@@ -16,6 +16,7 @@ local modname = "potions"
 dofile(modpath.."/metals.lua")
 dofile(modpath.."/geodes.lua")
 dofile(modpath.."/hotsprings.lua")
+dofile(modpath.."/structures/ziggurat.lua")
 
 -- core
 dofile(modpath.."/minetunnels.lua")
@@ -62,7 +63,7 @@ potions/magic
 	some potions are thrown, to break and activate where they land
 		conjure a prison
 	effectively change biome
-	clone
+	clone object
 	
 	
 [engine]
@@ -75,6 +76,9 @@ potions/magic
 	mapgen "regions" or extra biome params ("magicness" or other such variations)
 	ore-ish registration that guarantees a certain limited number of spawns
 	mapgen distance-from-center params
+	store a region in a gem, release later
+	more particle functions
+	raillike path prediction and pathing for entities
 
 fermentation, distillation, soaking/boiling pot, ball mill
 glass crafting furnace
@@ -101,7 +105,7 @@ gems:
 lapis lazuli, opal, citrine, aquamarine
 
 cyclopian masonry
-
+ancient sunken cities 
 
 fumaroles spwaning, textures and features
 
@@ -118,7 +122,10 @@ undersea volcanic vents
 deep-sea worms
 thornbushes
 blighted areas, purple miasma, dead plants, etc
-
+creosote bush
+pirate ships, treasure chests
+quicksand
+mayan temples on top of mountains
 
 magic beanstalk
 arching bridge
@@ -129,15 +136,20 @@ regeneration amulets
 force field
 fireball
 spell to unlock chests
+treasure maps of some sort
 
 minetunnels:
 	torches in coves
 	wood bracing
+	ceiling bolts
+	ladders to upper areas
 	minecart chests
 	wood walkways over caverns
 	hail of arrows trap
 	catapult that flings player back
-
+	stone columns in large rooms
+	
+	
 chemistry glassware getting used or consumed
 brown version of glassware
 fancier glassware needed for fancier chemicals
