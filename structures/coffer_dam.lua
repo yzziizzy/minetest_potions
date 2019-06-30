@@ -60,7 +60,7 @@ local function drop_octagon(center, rad)
 end
 
 
-local function freeze_top(pos, cb)
+local function freeze_top(pos, max_nodes, cb)
 	local stack = {}
 	local out = {}
 	table.insert(stack, pos)
@@ -82,6 +82,11 @@ local function freeze_top(pos, cb)
 				table.insert(stack, vector.add(p, {x=-1, y=0, z=0}))
 				table.insert(stack, vector.add(p, {x=0, y=0, z=1}))
 				table.insert(stack, vector.add(p, {x=0, y=0, z=-1}))
+				
+				if #out > max_nodes then
+					cb(out)
+					return
+				end
 				
 				if #stack > 0 and i > 5 then
 					minetest.after(1, process)
@@ -129,10 +134,29 @@ minetest.register_node("potions:coffer_dam_seed", {
 	on_construct = function(pos)
 		minetest.set_node(pos, {name="default:water_source"})
 		drop_octagon(pos, 3)
-		freeze_top(pos, function(pts)
+		freeze_top(pos, 12*12, function(pts)
 -- 			print("points "..#pts)
 			clear_water(pts, 10, 1)
-			minetest.after(2, remove_points, pts, 0)
+			minetest.add_particlespawner({
+				amount = 800,
+				time = 4,
+				minpos = vector.subtract(pos, 3+2),
+				maxpos = vector.add(pos, 3+2),
+				minvel = {x=-0.1, y=1, z=-0.1},
+				maxvel = {x=0.1,  y=.6,  z=0.1},
+				minacc = {x=-02.1, y=0.1, z=-02.1},
+				maxacc = {x=02.1, y=1.3, z=02.1},
+				minexptime = 1.5,
+				maxexptime = 1.5,
+		-- 		collisiondetection = true,
+		-- 		collision_removal = true,
+				minsize = 2.2,
+				maxsize = 2.2,
+				texture = "potions_particle.png^[colorize:blue:110",
+		-- 		animation = tileanimation
+				glow = 1
+			})
+			minetest.after(2.5, remove_points, pts, 0)
 		end)
 	end
 })
