@@ -18,6 +18,7 @@ dofile(modpath.."/geodes.lua")
 dofile(modpath.."/hotsprings.lua")
 dofile(modpath.."/structures/ziggurat.lua")
 dofile(modpath.."/structures/coffer_dam.lua")
+dofile(modpath.."/structures/bridge.lua")
 
 -- core
 dofile(modpath.."/minetunnels.lua")
@@ -65,6 +66,7 @@ potions/magic
 		conjure a prison
 	effectively change biome
 	clone object
+	nodes that explode when you dig them
 	
 	
 [engine]
@@ -373,26 +375,39 @@ end
 
 local function update_all_manna() 
 	for _,p in pairs(potions_players) do
-		update_player_manna(p, 2)
+		update_player_manna(p, 20)
 	end
 	
 	minetest.after(1, update_all_manna)
+end
+
+function trigger_negative_manna(player, m)
+	return false
 end
 
 minetest.after(1, update_all_manna)
 
 
 potions.use_manna = function(player, amt) 
-	local m = tonumber(player:get_attribute("manna")) or 0
-	m = m - amt
-	if m < 0 then
-		if trigger_negative_manna(player, m) then
-			return
+	local om = tonumber(player:get_attribute("manna")) or 0
+	local remm = om - amt
+	local used = amt
+	
+	if remm < 0 then
+		local res = trigger_negative_manna(player, m)
+		if res ~= false then
+			return res
 		end
+		
+		used = om
+		remm = 0
 	end
 	
-	player:set_attribute("manna", math.max(0, m))
+	
+	player:set_attribute("manna", remm)
 	update_player_manna(potions_players[player:get_player_name()], 0)
+	
+	return used
 end
 
 potions.get_manna = function(player) 
