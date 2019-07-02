@@ -1,6 +1,7 @@
 
 potions = {
 	geodes = {},
+	utils = {},
 }
 
 local potions_players = {}
@@ -19,12 +20,19 @@ dofile(modpath.."/hotsprings.lua")
 dofile(modpath.."/structures/ziggurat.lua")
 dofile(modpath.."/structures/coffer_dam.lua")
 dofile(modpath.."/structures/bridge.lua")
+dofile(modpath.."/structures/tunnel.lua")
+dofile(modpath.."/structures/island.lua")
+dofile(modpath.."/util/spiral.lua")
 
 -- core
 dofile(modpath.."/minetunnels.lua")
 dofile(modpath.."/beanstalk.lua")
 dofile(modpath.."/enchanting.lua")
 dofile(modpath.."/alchemy.lua")
+
+--spells
+dofile(modpath.."/spells/plant_growth.lua")
+
 
 -- pure mapgen
 dofile(modpath.."/rocks.lua")
@@ -54,8 +62,6 @@ potions/magic
 		each move takes a time meta value along for cooling
 	conjure a meteor
 	freeze/thaw an area
-	conjure a coffer dam
-	conjure an island
 	conjure a floatland
 	conjure butterflies or fireflies
 	a spell with two areas that sucks life-force from one area and vents it to another
@@ -67,6 +73,9 @@ potions/magic
 	effectively change biome
 	clone object
 	nodes that explode when you dig them
+	grow a big hollow bubble from the ground
+	create a space of air
+	emergent jungle tree with ladder inthe core up to a treehouse
 	
 	
 [engine]
@@ -375,7 +384,7 @@ end
 
 local function update_all_manna() 
 	for _,p in pairs(potions_players) do
-		update_player_manna(p, 20)
+		update_player_manna(p, 20) -- HACK manna regenerates quickly for debugging
 	end
 	
 	minetest.after(1, update_all_manna)
