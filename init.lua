@@ -14,6 +14,7 @@ local modname = "potions"
 
 
 -- nodes and some mapgen
+dofile(modpath.."/glassware.lua")
 dofile(modpath.."/metals.lua")
 dofile(modpath.."/geodes.lua")
 dofile(modpath.."/hotsprings.lua")

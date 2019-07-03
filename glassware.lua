@@ -111,5 +111,35 @@ minetest.register_node("potions:glass_blowing_furnace_on", {
 		
 	end,
 })
+
+
+
+minetest.register_node("potions:glass_still", {
+	description = "Glass Still",
+	paramtype = "light",
+	drawtype = "mesh",
+	mesh = "still.obj",
+ 	visual_scale = 1.0,
+	inventory_image = "default_snow.png",
+	tiles = {"default_steel_block.png"},
+	groups = {cracky = 3},
+	sounds = default.node_sound_stone_defaults(),
+	selection_box = {
+		type = "fixed",
+		fixed = {
+			{ -.5, -.5, -.5, .5, .5, .5 },
+-- 			{ -8.2, -.5, -.2, -7.8, 10, .2 },
+-- 			{ -.2, -.5, -8.2, .2, 10, -7.8 },
+-- 			{ 8.2, -.5, -.2, 7.8, 10, .2 },
+-- 			{ -.2, -.5, 8.2, .2, 10, 7.8 },
+		},
+ 	},
+ 	collision_box = {
+		type = "fixed",
+		fixed = {
+			{ -.5, -.5, -.5, .5, .5, .5 },
+		}
+ 	},
+})
 	
 

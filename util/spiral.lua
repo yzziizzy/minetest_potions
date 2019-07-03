@@ -290,9 +290,79 @@ minetest.register_craftitem("potions:spiral_test", {
 			table.insert(nodes, {vector.add({x=0,y=30,z=0}, vector.add(pos, v[1])), {name="default:bookshelf", param2=v[2]}, {books=book_inv}})
 			
 		end
+			
+		table.insert(nodes, {{x=pos.x+1, y=pos.y+22, z=pos.z-3}, {name="default:wood", param2=0}})
+		table.insert(nodes, {{x=pos.x+1, y=pos.y+23, z=pos.z-3}, {name="potions:glass_still", param2=0}})
+		table.insert(nodes, {{x=pos.x+0, y=pos.y+22, z=pos.z-3}, {name="default:wood", param2=0}})
+		table.insert(nodes, {{x=pos.x+0, y=pos.y+23, z=pos.z-3}, {name="potions:glass_still", param2=0}})
+		table.insert(nodes, {{x=pos.x-1, y=pos.y+22, z=pos.z-3}, {name="default:wood", param2=0}})
+		table.insert(nodes, {{x=pos.x-1, y=pos.y+23, z=pos.z-3}, {name="potions:glass_still", param2=0}})
+		
+		table.insert(nodes, {{x=pos.x, y=pos.y+27, z=pos.z-3}, {name="potions:ench_table_wood", param2=0}})
+		
+		
+		table.insert(nodes, {{x=pos.x+2, y=pos.y+12, z=pos.z-6}, {name="default:sand", param2=0}})
+		table.insert(nodes, {{x=pos.x+1, y=pos.y+12, z=pos.z-6}, {name="default:coral_green", param2=0}})
+		table.insert(nodes, {{x=pos.x, y=pos.y+12, z=pos.z-6}, {name="default:coral_cyan", param2=0}})
+		table.insert(nodes, {{x=pos.x-1, y=pos.y+12, z=pos.z-6}, {name="default:coral_pink", param2=0}})
+		table.insert(nodes, {{x=pos.x-2, y=pos.y+12, z=pos.z-6}, {name="default:sand", param2=0}})
+	
+		table.insert(nodes, {{x=pos.x+2, y=pos.y+12, z=pos.z+6}, {name="default:sand", param2=0}})
+		table.insert(nodes, {{x=pos.x+1, y=pos.y+12, z=pos.z+6}, {name="default:coral_green", param2=0}})
+		table.insert(nodes, {{x=pos.x, y=pos.y+12, z=pos.z+6}, {name="default:coral_pink", param2=0}})
+		table.insert(nodes, {{x=pos.x-1, y=pos.y+12, z=pos.z+6}, {name="default:coral_cyan", param2=0}})
+		table.insert(nodes, {{x=pos.x-2, y=pos.y+12, z=pos.z+6}, {name="default:sand", param2=0}})
+		table.insert(nodes, {{x=pos.x+2, y=pos.y+12, z=pos.z+6}, {name="default:sand", param2=0}})
+		
+		table.insert(nodes, {{x=pos.x+2, y=pos.y+13, z=pos.z+6}, {name="default:river_water_source"}})
+		table.insert(nodes, {{x=pos.x+1, y=pos.y+13, z=pos.z+6}, {name="default:river_water_source"}})
+		table.insert(nodes, {{x=pos.x+0, y=pos.y+13, z=pos.z+6}, {name="default:river_water_source"}})
+		table.insert(nodes, {{x=pos.x-1, y=pos.y+13, z=pos.z+6}, {name="default:river_water_source"}})
+		table.insert(nodes, {{x=pos.x-2, y=pos.y+13, z=pos.z+6}, {name="default:river_water_source"}})
+		table.insert(nodes, {{x=pos.x+2, y=pos.y+13, z=pos.z-6}, {name="default:river_water_source"}})
+		table.insert(nodes, {{x=pos.x+1, y=pos.y+13, z=pos.z-6}, {name="default:river_water_source"}})
+		table.insert(nodes, {{x=pos.x+0, y=pos.y+13, z=pos.z-6}, {name="default:river_water_source"}})
+		table.insert(nodes, {{x=pos.x-1, y=pos.y+13, z=pos.z-6}, {name="default:river_water_source"}})
+		table.insert(nodes, {{x=pos.x-2, y=pos.y+13, z=pos.z-6}, {name="default:river_water_source"}})
+		
+		table.insert(nodes, {{x=pos.x+3, y=pos.y+12, z=pos.z-5}, {name="default:obsidian_glass"}})
+		table.insert(nodes, {{x=pos.x+2, y=pos.y+12, z=pos.z-5}, {name="default:obsidian_glass"}})
+		table.insert(nodes, {{x=pos.x+1, y=pos.y+12, z=pos.z-5}, {name="default:obsidian_glass"}})
+		table.insert(nodes, {{x=pos.x+0, y=pos.y+12, z=pos.z-5}, {name="default:obsidian_glass"}})
+		table.insert(nodes, {{x=pos.x-1, y=pos.y+12, z=pos.z-5}, {name="default:obsidian_glass"}})
+		table.insert(nodes, {{x=pos.x-2, y=pos.y+12, z=pos.z-5}, {name="default:obsidian_glass"}})
+		table.insert(nodes, {{x=pos.x-3, y=pos.y+12, z=pos.z-5}, {name="default:obsidian_glass"}})
+		table.insert(nodes, {{x=pos.x+3, y=pos.y+13, z=pos.z-5}, {name="default:obsidian_glass"}})
+		table.insert(nodes, {{x=pos.x+2, y=pos.y+13, z=pos.z-5}, {name="default:obsidian_glass"}})
+		table.insert(nodes, {{x=pos.x+1, y=pos.y+13, z=pos.z-5}, {name="default:obsidian_glass"}})
+		table.insert(nodes, {{x=pos.x+0, y=pos.y+13, z=pos.z-5}, {name="default:obsidian_glass"}})
+		table.insert(nodes, {{x=pos.x-1, y=pos.y+13, z=pos.z-5}, {name="default:obsidian_glass"}})
+		table.insert(nodes, {{x=pos.x-2, y=pos.y+13, z=pos.z-5}, {name="default:obsidian_glass"}})
+		table.insert(nodes, {{x=pos.x-3, y=pos.y+13, z=pos.z-5}, {name="default:obsidian_glass"}})
+	
+		table.insert(nodes, {{x=pos.x+3, y=pos.y+12, z=pos.z+5}, {name="default:obsidian_glass"}})
+		table.insert(nodes, {{x=pos.x+2, y=pos.y+12, z=pos.z+5}, {name="default:obsidian_glass"}})
+		table.insert(nodes, {{x=pos.x+1, y=pos.y+12, z=pos.z+5}, {name="default:obsidian_glass"}})
+		table.insert(nodes, {{x=pos.x+0, y=pos.y+12, z=pos.z+5}, {name="default:obsidian_glass"}})
+		table.insert(nodes, {{x=pos.x-1, y=pos.y+12, z=pos.z+5}, {name="default:obsidian_glass"}})
+		table.insert(nodes, {{x=pos.x-2, y=pos.y+12, z=pos.z+5}, {name="default:obsidian_glass"}})
+		table.insert(nodes, {{x=pos.x-3, y=pos.y+12, z=pos.z+5}, {name="default:obsidian_glass"}})
+		table.insert(nodes, {{x=pos.x+3, y=pos.y+13, z=pos.z+5}, {name="default:obsidian_glass"}})
+		table.insert(nodes, {{x=pos.x+2, y=pos.y+13, z=pos.z+5}, {name="default:obsidian_glass"}})
+		table.insert(nodes, {{x=pos.x+1, y=pos.y+13, z=pos.z+5}, {name="default:obsidian_glass"}})
+		table.insert(nodes, {{x=pos.x+0, y=pos.y+13, z=pos.z+5}, {name="default:obsidian_glass"}})
+		table.insert(nodes, {{x=pos.x-1, y=pos.y+13, z=pos.z+5}, {name="default:obsidian_glass"}})
+		table.insert(nodes, {{x=pos.x-2, y=pos.y+13, z=pos.z+5}, {name="default:obsidian_glass"}})
+		table.insert(nodes, {{x=pos.x-3, y=pos.y+13, z=pos.z+5}, {name="default:obsidian_glass"}})
+		
+		
+		table.insert(nodes, {{x=pos.x-6, y=pos.y+17, z=pos.z+0}, {name="default:furnace", param2=3}})
+		table.insert(nodes, {{x=pos.x+6, y=pos.y+17, z=pos.z+0}, {name="default:furnace", param2=1}})
+		table.insert(nodes, {{x=pos.x+0, y=pos.y+17, z=pos.z+6}, {name="default:furnace", param2=0}})
+		table.insert(nodes, {{x=pos.x+0, y=pos.y+17, z=pos.z-6}, {name="default:furnace", param2=2}})
 	
 		
-		potions.utils.spawn_set(nodes, .5, 5)
+		potions.utils.spawn_set(nodes, .5, 500)
 		
 	end,
 })
