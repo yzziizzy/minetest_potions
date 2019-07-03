@@ -130,6 +130,16 @@ potions.utils.spawn_set = function(nodes, delay, nmax, cb)
 			
 			minetest.set_node(pn[1], pn[2])
 			
+			if pn[3] then
+				local meta = minetest.get_meta(pn[1])
+				local inv = meta:get_inventory()
+				
+				for k,v in pairs(pn[3]) do
+					inv:set_list(k, v)
+				end
+			end
+			
+			
 			i = i + 1 
 		end
 		

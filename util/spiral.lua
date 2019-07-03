@@ -109,6 +109,23 @@ end
 
 
 
+minetest.register_craftitem("potions:test_tool", {
+	description = "Test Tool",
+	inventory_image = "default_sand.png",
+	groups = {cracky=3,},
+ 	liquids_pointable=true,
+	
+	on_use = function(itemstack, player, pointed_thing)
+		
+		local pos = pointed_thing.above
+		pos.y=pos.y-1
+		local meta = minetest.get_meta(pos)
+		print(dump(meta:to_table()))
+		
+	end,
+})
+
+
 minetest.register_craftitem("potions:spiral_test", {
 	description = "Spiral Seed",
 	inventory_image = "default_brick.png",
@@ -131,105 +148,151 @@ minetest.register_craftitem("potions:spiral_test", {
 -- 		minetest.bulk_set_node(disc, {name="default:wood"})
 		potions.utils.disc_cheap(nodes, {x=pos.x, y=pos.y+5, z=pos.z}, 6.8, "default:wood")
 -- 		minetest.bulk_set_node(disc, {name="default:wood"})
-		potions.utils.disc_cheap(nodes, {x=pos.x, y=pos.y+10, z=pos.z}, 6.8, "default:wood")
-		potions.utils.disc_cheap(nodes, {x=pos.x, y=pos.y+15, z=pos.z}, 6.8, "default:wood")
-		potions.utils.disc_cheap(nodes, {x=pos.x, y=pos.y+20, z=pos.z}, 6.8, "default:wood")
+		potions.utils.disc_cheap(nodes, {x=pos.x, y=pos.y+10, z=pos.z}, 6.8, "default:aspen_wood")
+		potions.utils.disc_cheap(nodes, {x=pos.x, y=pos.y+15, z=pos.z}, 6.8, "default:pine_wood")
+		potions.utils.disc_cheap(nodes, {x=pos.x, y=pos.y+20, z=pos.z}, 6.8, "default:junglewood")
 		potions.utils.disc_cheap(nodes, {x=pos.x, y=pos.y+25, z=pos.z}, 6.8, "default:wood")
 		potions.utils.disc_cheap(nodes, {x=pos.x, y=pos.y+30, z=pos.z}, 6.8, "default:wood")
 -- 		minetest.bulk_set_node(disc, {name="default:wood"})
 		
 		local opos = vector.new(pos)
-		potions.utils.stairs(nodes, vector.add(pos, {x=0,y=1,z=0}), {x=-1, z=0}, 5, "stairs:stair_wood", 3, "default:tree")
-		potions.utils.stairs(nodes, vector.add(pos, {x=-4,y=6,z=1}), {x=1, z=0}, 5, "stairs:stair_wood", 3, "default:tree")
-		potions.utils.stairs(nodes, vector.add(pos, {x=0,y=11,z=0}), {x=-1, z=0}, 5, "stairs:stair_wood", 3, "default:tree")
-		potions.utils.stairs(nodes, vector.add(pos, {x=-4,y=16,z=1}), {x=1, z=0}, 5, "stairs:stair_wood", 3, "default:tree")
-		potions.utils.stairs(nodes, vector.add(pos, {x=0,y=21,z=0}), {x=-1, z=0}, 5, "stairs:stair_wood", 3, "default:tree")
-		potions.utils.stairs(nodes, vector.add(pos, {x=-4,y=26,z=1}), {x=1, z=0}, 5, "stairs:stair_wood", 3, "default:tree")
+		potions.utils.stairs(nodes, vector.add(pos, {x=2,y=1,z=0}), {x=-1, z=0}, 5, "stairs:stair_stonebrick", 3, "default:tree")
+		potions.utils.stairs(nodes, vector.add(pos, {x=-2,y=6,z=1}), {x=1, z=0}, 5, "stairs:stair_wood", 3, "default:tree")
+		potions.utils.stairs(nodes, vector.add(pos, {x=2,y=11,z=0}), {x=-1, z=0}, 5, "stairs:stair_aspen_wood", 3, "default:tree")
+		potions.utils.stairs(nodes, vector.add(pos, {x=-2,y=16,z=1}), {x=1, z=0}, 5, "stairs:stair_pine_wood", 3, "default:tree")
+		potions.utils.stairs(nodes, vector.add(pos, {x=2,y=21,z=0}), {x=-1, z=0}, 5, "stairs:stair_junglewood", 3, "default:tree")
+		potions.utils.stairs(nodes, vector.add(pos, {x=-2,y=26,z=1}), {x=1, z=0}, 5, "stairs:stair_wood", 3, "default:tree")
 		
 		pos = opos
 		pos.y = pos.y - 1
 		
 		potions.utils.cylinder_cheap(nodes, pos, 7, 32, "default:stonebrick")
 		
-		table.insert(nodes, {{x=pos.x+7, y=pos.y+2, z=pos.z}, {name="air"}})
+		-- door
 		table.insert(nodes, {{x=pos.x+7, y=pos.y+3, z=pos.z}, {name="air"}})
+		table.insert(nodes, {{x=pos.x+7, y=pos.y+2, z=pos.z}, {name="doors:door_steel_a", param2=1}})
 		
-		table.insert(nodes, {{x=pos.x+7, y=pos.y+8, z=pos.z}, {name="air"}})
-		table.insert(nodes, {{x=pos.x+7, y=pos.y+13, z=pos.z}, {name="air"}})
-		table.insert(nodes, {{x=pos.x+7, y=pos.y+18, z=pos.z}, {name="air"}})
-		table.insert(nodes, {{x=pos.x+7, y=pos.y+23, z=pos.z}, {name="air"}})
-		table.insert(nodes, {{x=pos.x+7, y=pos.y+28, z=pos.z}, {name="air"}})
-		table.insert(nodes, {{x=pos.x+7, y=pos.y+33, z=pos.z}, {name="air"}})
+		-- windows
+		table.insert(nodes, {{x=pos.x+7, y=pos.y+8, z=pos.z}, {name="xpanes:bar_flat", param2=3}})
+		table.insert(nodes, {{x=pos.x+7, y=pos.y+13, z=pos.z}, {name="xpanes:pane_flat", param2=3}})
+		table.insert(nodes, {{x=pos.x+7, y=pos.y+18, z=pos.z}, {name="xpanes:pane_flat", param2=3}})
+		table.insert(nodes, {{x=pos.x+7, y=pos.y+23, z=pos.z}, {name="xpanes:pane_flat", param2=3}})
+		table.insert(nodes, {{x=pos.x+7, y=pos.y+28, z=pos.z}, {name="xpanes:obsidian_pane_flat", param2=3}})
 		
-		table.insert(nodes, {{x=pos.x-7, y=pos.y+8, z=pos.z}, {name="air"}})
-		table.insert(nodes, {{x=pos.x-7, y=pos.y+13, z=pos.z}, {name="air"}})
-		table.insert(nodes, {{x=pos.x-7, y=pos.y+18, z=pos.z}, {name="air"}})
-		table.insert(nodes, {{x=pos.x-7, y=pos.y+23, z=pos.z}, {name="air"}})
-		table.insert(nodes, {{x=pos.x-7, y=pos.y+28, z=pos.z}, {name="air"}})
-		table.insert(nodes, {{x=pos.x-7, y=pos.y+33, z=pos.z}, {name="air"}})
+		table.insert(nodes, {{x=pos.x-7, y=pos.y+8, z=pos.z}, {name="xpanes:bar_flat", param2=3}})
+		table.insert(nodes, {{x=pos.x-7, y=pos.y+13, z=pos.z}, {name="xpanes:pane_flat", param2=3}})
+		table.insert(nodes, {{x=pos.x-7, y=pos.y+18, z=pos.z}, {name="xpanes:pane_flat", param2=3}})
+		table.insert(nodes, {{x=pos.x-7, y=pos.y+23, z=pos.z}, {name="xpanes:pane_flat", param2=3}})
+		table.insert(nodes, {{x=pos.x-7, y=pos.y+28, z=pos.z}, {name="xpanes:obsidian_pane_flat", param2=3}})
 		
-		table.insert(nodes, {{x=pos.x, y=pos.y+8, z=pos.z+7}, {name="air"}})
-		table.insert(nodes, {{x=pos.x, y=pos.y+13, z=pos.z+7}, {name="air"}})
-		table.insert(nodes, {{x=pos.x, y=pos.y+18, z=pos.z+7}, {name="air"}})
-		table.insert(nodes, {{x=pos.x, y=pos.y+23, z=pos.z+7}, {name="air"}})
-		table.insert(nodes, {{x=pos.x, y=pos.y+28, z=pos.z+7}, {name="air"}})
-		table.insert(nodes, {{x=pos.x, y=pos.y+33, z=pos.z+7}, {name="air"}})
+		table.insert(nodes, {{x=pos.x, y=pos.y+8, z=pos.z+7}, {name="xpanes:bar_flat", param2=0}})
+		table.insert(nodes, {{x=pos.x, y=pos.y+13, z=pos.z+7}, {name="xpanes:pane_flat", param2=0}})
+		table.insert(nodes, {{x=pos.x, y=pos.y+18, z=pos.z+7}, {name="xpanes:pane_flat", param2=0}})
+		table.insert(nodes, {{x=pos.x, y=pos.y+23, z=pos.z+7}, {name="xpanes:pane_flat", param2=0}})
+		table.insert(nodes, {{x=pos.x, y=pos.y+28, z=pos.z+7}, {name="xpanes:obsidian_pane_flat", param2=0}})
 		
-		table.insert(nodes, {{x=pos.x, y=pos.y+8, z=pos.z-7}, {name="air"}})
-		table.insert(nodes, {{x=pos.x, y=pos.y+13, z=pos.z-7}, {name="air"}})
-		table.insert(nodes, {{x=pos.x, y=pos.y+18, z=pos.z-7}, {name="air"}})
-		table.insert(nodes, {{x=pos.x, y=pos.y+23, z=pos.z-7}, {name="air"}})
-		table.insert(nodes, {{x=pos.x, y=pos.y+28, z=pos.z-7}, {name="air"}})
-		table.insert(nodes, {{x=pos.x, y=pos.y+33, z=pos.z-7}, {name="air"}})
+		table.insert(nodes, {{x=pos.x, y=pos.y+8, z=pos.z-7}, {name="xpanes:bar_flat", param2=0}})
+		table.insert(nodes, {{x=pos.x, y=pos.y+13, z=pos.z-7}, {name="xpanes:pane_flat", param2=0}})
+		table.insert(nodes, {{x=pos.x, y=pos.y+18, z=pos.z-7}, {name="xpanes:pane_flat", param2=0}})
+		table.insert(nodes, {{x=pos.x, y=pos.y+23, z=pos.z-7}, {name="xpanes:pane_flat", param2=0}})
+		table.insert(nodes, {{x=pos.x, y=pos.y+28, z=pos.z-7}, {name="xpanes:obsidian_pane_flat", param2=0}})
 		
+		-- first level torches
 		table.insert(nodes, {{x=pos.x-6, y=pos.y+4, z=pos.z}, {name="default:torch_wall", param2=3}})
 		table.insert(nodes, {{x=pos.x, y=pos.y+4, z=pos.z+6}, {name="default:torch_wall", param2=4}})
 		table.insert(nodes, {{x=pos.x, y=pos.y+4, z=pos.z-6}, {name="default:torch_wall", param2=5}})
+
+		-- second level beds
+		table.insert(nodes, {{x=pos.x-3, y=pos.y+7, z=pos.z-5}, {name="beds:fancy_bed_top", param2=2}})
+		table.insert(nodes, {{x=pos.x-3, y=pos.y+7, z=pos.z-4}, {name="beds:fancy_bed_bottom", param2=2}})
+		table.insert(nodes, {{x=pos.x-1, y=pos.y+7, z=pos.z-5}, {name="beds:fancy_bed_top", param2=2}})
+		table.insert(nodes, {{x=pos.x-1, y=pos.y+7, z=pos.z-4}, {name="beds:fancy_bed_bottom", param2=2}})
+		table.insert(nodes, {{x=pos.x+1, y=pos.y+7, z=pos.z-5}, {name="beds:fancy_bed_top", param2=2}})
+		table.insert(nodes, {{x=pos.x+1, y=pos.y+7, z=pos.z-4}, {name="beds:fancy_bed_bottom", param2=2}})
+		table.insert(nodes, {{x=pos.x+3, y=pos.y+7, z=pos.z-5}, {name="beds:fancy_bed_top", param2=2}})
+		table.insert(nodes, {{x=pos.x+3, y=pos.y+7, z=pos.z-4}, {name="beds:fancy_bed_bottom", param2=2}})
 		
-		table.insert(nodes, {{x=pos.x+6, y=pos.y+22, z=pos.z-2}, {name="default:chest_locked", param2=1}})
-		table.insert(nodes, {{x=pos.x+6, y=pos.y+22, z=pos.z-1}, {name="default:chest_locked", param2=1}})
-		table.insert(nodes, {{x=pos.x+6, y=pos.y+22, z=pos.z+1}, {name="default:chest_locked", param2=1}})
-		table.insert(nodes, {{x=pos.x+6, y=pos.y+22, z=pos.z+2}, {name="default:chest_locked", param2=1}})
+		table.insert(nodes, {{x=pos.x-3, y=pos.y+7, z=pos.z+5}, {name="beds:fancy_bed_top", param2=0}})
+		table.insert(nodes, {{x=pos.x-3, y=pos.y+7, z=pos.z+4}, {name="beds:fancy_bed_bottom", param2=0}})
+		table.insert(nodes, {{x=pos.x-1, y=pos.y+7, z=pos.z+5}, {name="beds:fancy_bed_top", param2=0}})
+		table.insert(nodes, {{x=pos.x-1, y=pos.y+7, z=pos.z+4}, {name="beds:fancy_bed_bottom", param2=0}})
+		table.insert(nodes, {{x=pos.x+1, y=pos.y+7, z=pos.z+5}, {name="beds:fancy_bed_top", param2=0}})
+		table.insert(nodes, {{x=pos.x+1, y=pos.y+7, z=pos.z+4}, {name="beds:fancy_bed_bottom", param2=0}})
+		table.insert(nodes, {{x=pos.x+3, y=pos.y+7, z=pos.z+5}, {name="beds:fancy_bed_top", param2=0}})
+		table.insert(nodes, {{x=pos.x+3, y=pos.y+7, z=pos.z+4}, {name="beds:fancy_bed_bottom", param2=0}})
 		
-		table.insert(nodes, {{x=pos.x-6, y=pos.y+22, z=pos.z-2}, {name="default:chest_locked", param2=3}})
-		table.insert(nodes, {{x=pos.x-6, y=pos.y+22, z=pos.z-1}, {name="default:chest_locked", param2=3}})
-		table.insert(nodes, {{x=pos.x-6, y=pos.y+22, z=pos.z+1}, {name="default:chest_locked", param2=3}})
-		table.insert(nodes, {{x=pos.x-6, y=pos.y+22, z=pos.z+2}, {name="default:chest_locked", param2=3}})
+		local food_inv = {}
+		for _ = 1,32 do table.insert(food_inv, "default:apple 99") end
 		
-		table.insert(nodes, {{x=pos.x-2, y=pos.y+22, z=pos.z+6}, {name="default:chest_locked", param2=0}})
-		table.insert(nodes, {{x=pos.x-1, y=pos.y+22, z=pos.z+6}, {name="default:chest_locked", param2=0}})
-		table.insert(nodes, {{x=pos.x+1, y=pos.y+22, z=pos.z+6}, {name="default:chest_locked", param2=0}})
-		table.insert(nodes, {{x=pos.x+2, y=pos.y+22, z=pos.z+6}, {name="default:chest_locked", param2=0}})
-		
-		table.insert(nodes, {{x=pos.x-2, y=pos.y+22, z=pos.z-6}, {name="default:chest_locked", param2=2}})
-		table.insert(nodes, {{x=pos.x-1, y=pos.y+22, z=pos.z-6}, {name="default:chest_locked", param2=2}})
-		table.insert(nodes, {{x=pos.x+1, y=pos.y+22, z=pos.z-6}, {name="default:chest_locked", param2=2}})
-		table.insert(nodes, {{x=pos.x+2, y=pos.y+22, z=pos.z-6}, {name="default:chest_locked", param2=2}})
-		
-		
-		table.insert(nodes, {{x=pos.x+6, y=pos.y+22, z=pos.z-2}, {name="default:bookshelf", param2=1}})
-		table.insert(nodes, {{x=pos.x+6, y=pos.y+22, z=pos.z-1}, {name="default:bookshelf", param2=1}})
-		table.insert(nodes, {{x=pos.x+6, y=pos.y+22, z=pos.z+1}, {name="default:bookshelf", param2=1}})
-		table.insert(nodes, {{x=pos.x+6, y=pos.y+22, z=pos.z+2}, {name="default:bookshelf", param2=1}})
-		
-		table.insert(nodes, {{x=pos.x-6, y=pos.y+22, z=pos.z-2}, {name="default:bookshelf", param2=3}})
-		table.insert(nodes, {{x=pos.x-6, y=pos.y+22, z=pos.z-1}, {name="default:bookshelf", param2=3}})
-		table.insert(nodes, {{x=pos.x-6, y=pos.y+22, z=pos.z+1}, {name="default:bookshelf", param2=3}})
-		table.insert(nodes, {{x=pos.x-6, y=pos.y+22, z=pos.z+2}, {name="default:bookshelf", param2=3}})
-		
-		table.insert(nodes, {{x=pos.x-2, y=pos.y+22, z=pos.z+6}, {name="default:bookshelf", param2=0}})
-		table.insert(nodes, {{x=pos.x-1, y=pos.y+22, z=pos.z+6}, {name="default:bookshelf", param2=0}})
-		table.insert(nodes, {{x=pos.x+1, y=pos.y+22, z=pos.z+6}, {name="default:bookshelf", param2=0}})
-		table.insert(nodes, {{x=pos.x+2, y=pos.y+22, z=pos.z+6}, {name="default:bookshelf", param2=0}})
-		
-		table.insert(nodes, {{x=pos.x-2, y=pos.y+22, z=pos.z-6}, {name="default:bookshelf", param2=2}})
-		table.insert(nodes, {{x=pos.x-1, y=pos.y+22, z=pos.z-6}, {name="default:bookshelf", param2=2}})
-		table.insert(nodes, {{x=pos.x+1, y=pos.y+22, z=pos.z-6}, {name="default:bookshelf", param2=2}})
-		table.insert(nodes, {{x=pos.x+2, y=pos.y+22, z=pos.z-6}, {name="default:bookshelf", param2=2}})
+		table.insert(nodes, {{x=pos.x+6, y=pos.y+7, z=pos.z+2}, {name="default:chest", param2=1}, {main=food_inv}})
+		table.insert(nodes, {{x=pos.x+6, y=pos.y+7, z=pos.z+1}, {name="default:chest", param2=1}, {main=food_inv}})
+		table.insert(nodes, {{x=pos.x+6, y=pos.y+7, z=pos.z-1}, {name="default:chest", param2=1}, {main=food_inv}})
+		table.insert(nodes, {{x=pos.x+6, y=pos.y+7, z=pos.z-2}, {name="default:chest", param2=1}, {main=food_inv}})
+
 		
 		
+		local box_ring = {
+			{{x=5, y=0, z=-4}, 1},
+			{{x=5, y=0, z=-3}, 1},
+			{{x=6, y=0, z=-2}, 1},
+			{{x=6, y=0, z=-1}, 1},
+			{{x=6, y=0, z=1}, 1},
+			{{x=6, y=0, z=2}, 1},
+			{{x=5, y=0, z=3}, 1},
+			{{x=5, y=0, z=4}, 1},
+			
+			{{x=-5, y=0, z=-4}, 3},
+			{{x=-5, y=0, z=-3}, 3},
+			{{x=-6, y=0, z=-2}, 3},
+			{{x=-6, y=0, z=-1}, 3},
+			{{x=-6, y=0, z=1}, 3},
+			{{x=-6, y=0, z=2}, 3},
+			{{x=-5, y=0, z=3}, 3},
+			{{x=-5, y=0, z=4}, 3},
+			
+			{{x=-4, y=0, z=5}, 0},
+			{{x=-3, y=0, z=5}, 0},
+			{{x=-2, y=0, z=6}, 0},
+			{{x=-1, y=0, z=6}, 0},
+			{{x=1, y=0, z=6}, 0},
+			{{x=2, y=0, z=6}, 0},
+			{{x=3, y=0, z=5}, 0},
+			{{x=4, y=0, z=5}, 0},
+			
+			{{x=-4, y=0, z=-5}, 2},
+			{{x=-3, y=0, z=-5}, 2},
+			{{x=-2, y=0, z=-6}, 2},
+			{{x=-1, y=0, z=-6}, 2},
+			{{x=1, y=0, z=-6}, 2},
+			{{x=2, y=0, z=-6}, 2},
+			{{x=3, y=0, z=-5}, 2},
+			{{x=4, y=0, z=-5}, 2},
+		}
 		
-		potions.utils.spawn_set(nodes, .5, 350)
+-- 		local main = {"default:dirt 12"}
+
+		local book_inv = {}
+		for _ = 1,16 do table.insert(book_inv, "default:book") end
+		
+-- 		local book_inv = {}
+-- 		for _ = 1,16 do table.insert(book_inv, "default:book") end
+
+		
+		for i,v in ipairs(box_ring) do
+			table.insert(nodes, {vector.add({x=0,y=17,z=0}, vector.add(pos, v[1])), {name="default:chest_locked", param2=v[2]}, {}})
+			
+			table.insert(nodes, {vector.add({x=0,y=22,z=0}, vector.add(pos, v[1])), {name="vessels:shelf", param2=v[2]}, {}})
+			table.insert(nodes, {vector.add({x=0,y=23,z=0}, vector.add(pos, v[1])), {name="vessels:shelf", param2=v[2]}, {}})
+			
+			table.insert(nodes, {vector.add({x=0,y=27,z=0}, vector.add(pos, v[1])), {name="default:bookshelf", param2=v[2]}, {books=book_inv}})
+			table.insert(nodes, {vector.add({x=0,y=28,z=0}, vector.add(pos, v[1])), {name="default:bookshelf", param2=v[2]}, {books=book_inv}})
+			table.insert(nodes, {vector.add({x=0,y=29,z=0}, vector.add(pos, v[1])), {name="default:bookshelf", param2=v[2]}, {books=book_inv}})
+			table.insert(nodes, {vector.add({x=0,y=30,z=0}, vector.add(pos, v[1])), {name="default:bookshelf", param2=v[2]}, {books=book_inv}})
+			
+		end
+	
+		
+		potions.utils.spawn_set(nodes, .5, 5)
 		
 	end,
 })
