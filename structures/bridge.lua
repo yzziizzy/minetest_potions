@@ -58,7 +58,7 @@ function make_temp_node(oname)
 		description = odef.name,
 		tiles = odef.tiles,
 		special_tiles = odef.special_tiles,
-		groups = {cracky=3, crumbly=3, snappy=3, choppy=3},
+		groups = {cracky=3, crumbly=3, snappy=3, choppy=3, not_in_creative_inventory=1},
 		drawtype = "nodebox",
 		paramtype = "light",
 		paramtype2 = "facedir",

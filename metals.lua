@@ -84,14 +84,14 @@ end
 if check_aliases("potions:lead_lump", {"default:lead_lump"}) then
 	minetest.register_craftitem("potions:lead_lump", {
 		description = "lead Lump",
-		inventory_image = "default_steel_lump^[colorize:black:30",
+		inventory_image = "default_iron_lump^[colorize:black:30",
 	})
 end
 
 if check_aliases("potions:lead_block", {"default:leadblock"}) then
 	minetest.register_craftitem("potions:lead_block", {
 		description = "Lead Block",
-		inventory_image = "default_steelblock.png^[colorize:black:30",
+		inventory_image = "default_steel_block.png^[colorize:black:30",
 	})
 	
 	minetest.register_craft({
