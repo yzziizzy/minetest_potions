@@ -101,8 +101,6 @@ need books to do certain spells
 "Apocryphon" - secret book
 
 ink, black/gold/silver/red
-ethanol, methanol
-ammonia
 saltpeter, halite, iron(II) sulfate aka green vitriol (melanterite), soda nitre, pot ash
 pyrite
 iodine (from seaweed)

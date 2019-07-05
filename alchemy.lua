@@ -562,3 +562,105 @@ minetest.register_node("potions:still", {
 
 
 
+minetest.register_node("potions:ethanol_flask", {
+	description = "Flask of Ethanol",
+	inventory_image = "potions_eflask_clear.png",
+	tiles = {"potions_eflask_clear.png"},
+	drawtype = "plantlike",
+	visual_scale = .5,
+	waving = false,
+	buildable_to = false,
+	walkable = false,
+	groups = {vessel=1, oddly_breakable_by_hand=3, cracky=3, choppy=3, snappy=3, crumbly=3},
+})
+
+minetest.register_node("potions:methanol_flask", {
+	description = "Flask of Methanol",
+	inventory_image = "potions_eflask_clear.png",
+	tiles = {"potions_eflask_clear.png"},
+	drawtype = "plantlike",
+	visual_scale = .5,
+	waving = false,
+	buildable_to = false,
+	walkable = false,
+	groups = {vessel=1, oddly_breakable_by_hand=3, cracky=3, choppy=3, snappy=3, crumbly=3},
+})
+
+
+minetest.register_node("potions:ammonia_flask", {
+	description = "Flask of Ammonia",
+	inventory_image = "potions_eflask_ammonia.png",
+	tiles = {"potions_eflask_ammonia.png"},
+	drawtype = "plantlike",
+	visual_scale = .5,
+	waving = false,
+	buildable_to = false,
+	walkable = false,
+	groups = {vessel=1, oddly_breakable_by_hand=3, cracky=3, choppy=3, snappy=3, crumbly=3},
+})
+
+minetest.register_node("potions:muriatic_acid_flask", {
+	description = "Flask of Muriatic Acid",
+	inventory_image = "potions_eflask_clear.png",
+	tiles = {"potions_eflask_ammonia.png"},
+	drawtype = "plantlike",
+	visual_scale = .5,
+	waving = false,
+	buildable_to = false,
+	walkable = false,
+	groups = {vessel=1, oddly_breakable_by_hand=3, cracky=3, choppy=3, snappy=3, crumbly=3},
+})
+
+-- hydrochloric acid
+minetest.register_node("potions:muriatic_acid_flask", {
+	description = "Flask of Muriatic Acid",
+	inventory_image = "potions_eflask_clear.png",
+	tiles = {"potions_eflask_ammonia.png"},
+	drawtype = "plantlike",
+	visual_scale = .5,
+	waving = false,
+	buildable_to = false,
+	walkable = false,
+	groups = {vessel=1, oddly_breakable_by_hand=3, cracky=3, choppy=3, snappy=3, crumbly=3},
+})
+
+-- sulfuric acid
+minetest.register_node("potions:vitriol_flask", {
+	description = "Flask of Vitriol",
+	inventory_image = "potions_eflask_clear.png",
+	tiles = {"potions_eflask_ammonia.png"},
+	drawtype = "plantlike",
+	visual_scale = .5,
+	waving = false,
+	buildable_to = false,
+	walkable = false,
+	groups = {vessel=1, oddly_breakable_by_hand=3, cracky=3, choppy=3, snappy=3, crumbly=3},
+})
+
+-- nitric acid
+minetest.register_node("potions:aqua_fortis_flask", {
+	description = "Flask of Vitriol",
+	inventory_image = "potions_eflask_clear.png",
+	tiles = {"potions_eflask_ammonia.png"},
+	drawtype = "plantlike",
+	visual_scale = .5,
+	waving = false,
+	buildable_to = false,
+	walkable = false,
+	groups = {vessel=1, oddly_breakable_by_hand=3, cracky=3, choppy=3, snappy=3, crumbly=3},
+})
+
+
+minetest.register_node("potions:iodine_flask", {
+	description = "Flask of Iodine",
+	inventory_image = "potions_rflask_iodine.png",
+	tiles = {"potions_rflask_iodine.png"},
+	drawtype = "plantlike",
+	visual_scale = .5,
+	waving = false,
+	buildable_to = false,
+	walkable = false,
+	groups = {vessel=1, oddly_breakable_by_hand=3, cracky=3, choppy=3, snappy=3, crumbly=3},
+})
+
+
