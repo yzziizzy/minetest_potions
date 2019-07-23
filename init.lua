@@ -141,6 +141,7 @@ creosote bush
 pirate ships, treasure chests
 quicksand
 mayan temples on top of mountains
+poppies
 
 magic beanstalk
 arching bridge
