@@ -27,6 +27,7 @@ dofile(modpath.."/util/spiral.lua")
 dofile(modpath.."/util/spawn.lua")
 
 -- core
+dofile(modpath.."/gates.lua")
 dofile(modpath.."/minetunnels.lua")
 dofile(modpath.."/beanstalk.lua")
 dofile(modpath.."/enchanting.lua")
@@ -78,6 +79,8 @@ potions/magic
 	grow a big hollow bubble from the ground
 	create a space of air
 	emergent jungle tree with ladder inthe core up to a treehouse
+	install stairs on a random slope
+	
 	
 	
 [engine]
@@ -119,7 +122,7 @@ lapis lazuli, opal, citrine, aquamarine
 cyclopian masonry
 ancient sunken cities 
 
-fumaroles spwaning, textures and features
+fumaroles spawning, textures and features
 
 joshua trees (connected node)
 bogs
@@ -234,8 +237,8 @@ minetest.register_node("potions:prickly_pear_plus", {
 
 minetest.register_abm({
 	nodenames = "potions:prickly_pear",
-	chance = 3,
-	interval = 1,
+	chance = 20,
+	interval = 10,
 	action = function(pos, node)
 		local meta = minetest.get_meta(pos)
 		local h = meta:get_int("height") + 1
@@ -270,8 +273,8 @@ minetest.register_abm({
 
 minetest.register_abm({
 	nodenames = "potions:prickly_pear_plus",
-	chance = 3,
-	interval = 1,
+	chance = 40,
+	interval = 15,
 	action = function(pos, node)
 		local meta = minetest.get_meta(pos)
 		local h = meta:get_int("height") + 1

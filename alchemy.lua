@@ -602,7 +602,7 @@ minetest.register_node("potions:ammonia_flask", {
 minetest.register_node("potions:muriatic_acid_flask", {
 	description = "Flask of Muriatic Acid",
 	inventory_image = "potions_eflask_clear.png",
-	tiles = {"potions_eflask_ammonia.png"},
+	tiles = {"potions_eflask_clear.png"},
 	drawtype = "plantlike",
 	visual_scale = .5,
 	waving = false,
@@ -615,7 +615,7 @@ minetest.register_node("potions:muriatic_acid_flask", {
 minetest.register_node("potions:muriatic_acid_flask", {
 	description = "Flask of Muriatic Acid",
 	inventory_image = "potions_eflask_clear.png",
-	tiles = {"potions_eflask_ammonia.png"},
+	tiles = {"potions_eflask_clear.png"},
 	drawtype = "plantlike",
 	visual_scale = .5,
 	waving = false,
@@ -628,7 +628,7 @@ minetest.register_node("potions:muriatic_acid_flask", {
 minetest.register_node("potions:vitriol_flask", {
 	description = "Flask of Vitriol",
 	inventory_image = "potions_eflask_clear.png",
-	tiles = {"potions_eflask_ammonia.png"},
+	tiles = {"potions_eflask_clear.png"},
 	drawtype = "plantlike",
 	visual_scale = .5,
 	waving = false,
@@ -641,7 +641,7 @@ minetest.register_node("potions:vitriol_flask", {
 minetest.register_node("potions:aqua_fortis_flask", {
 	description = "Flask of Vitriol",
 	inventory_image = "potions_eflask_clear.png",
-	tiles = {"potions_eflask_ammonia.png"},
+	tiles = {"potions_eflask_clear.png"},
 	drawtype = "plantlike",
 	visual_scale = .5,
 	waving = false,
@@ -664,3 +664,70 @@ minetest.register_node("potions:iodine_flask", {
 })
 
 
+minetest.register_node("potions:aqua_regia_flask", {
+	description = "Flask of Aqua Regia",
+	inventory_image = "potions_eflask_clear.png",
+	tiles = {"potions_eflask_clear.png"},
+	drawtype = "plantlike",
+	visual_scale = .5,
+	waving = false,
+	buildable_to = false,
+	walkable = false,
+	groups = {vessel=1, oddly_breakable_by_hand=3, cracky=3, choppy=3, snappy=3, crumbly=3},
+})
+
+minetest.register_craft({
+	output = "potions:aqua_regia_flask 2",
+	type = "shapeless",
+	recipe = {"potions:aqua_fortis_flask", "potions:muriatic_acid_flask"},
+})
+
+minetest.register_node("potions:aqua_regia_with_gold", {
+	description = "Orange Flask of Aqua Regia",
+	inventory_image = "potions_eflask_aregia_with_gold.png",
+	tiles = {"potions_eflask_aregia_with_gold.png"},
+	drawtype = "plantlike",
+	visual_scale = .5,
+	waving = false,
+	buildable_to = false,
+	walkable = false,
+	groups = {vessel=1, oddly_breakable_by_hand=3, cracky=3, choppy=3, snappy=3, crumbly=3},
+})
+
+
+minetest.register_craft({
+	output = "potions:aqua_regia_with_gold",
+	type = "shapeless",
+	recipe = {"potions:aqua_regia_flask", "default:gold_ingot"},
+})
+minetest.register_craft({
+	output = "potions:aqua_regia_with_gold",
+	type = "shapeless",
+	recipe = {"potions:aqua_regia_flask", "default:gold_lump"},
+})
+
+
+-- nitric acid
+minetest.register_node("potions:aqua_fortis_with_silver", {
+	description = "Blue Flask of Aqua Fortis",
+	inventory_image = "potions_eflask_afortis_with_silver.png",
+	tiles = {"potions_eflask_afortis_with_silver.png"},
+	drawtype = "plantlike",
+	visual_scale = .5,
+	waving = false,
+	buildable_to = false,
+	walkable = false,
+	groups = {vessel=1, oddly_breakable_by_hand=3, cracky=3, choppy=3, snappy=3, crumbly=3},
+})
+
+
+minetest.register_craft({
+	output = "potions:aqua_fortis_with_silver",
+	type = "shapeless",
+	recipe = {"potions:aqua_fortis_flask", "potions:silver_ingot"},
+})
+minetest.register_craft({
+	output = "potions:aqua_fortis_with_silver",
+	type = "shapeless",
+	recipe = {"potions:aqua_fortis_flask", "potions:silver_lump"},
+})

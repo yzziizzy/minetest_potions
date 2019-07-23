@@ -478,7 +478,7 @@ minetest.register_decoration({
 minetest.register_abm({
 	nodenames = {"default:river_water_source"},
 	neighbors = {"potions:hotspring_water_source", "potions:hotspring_water_flowing"},
-	chance = 5,
+	chance = 15,
 	interval = 5,
 	action = function(pos, node)
 	
