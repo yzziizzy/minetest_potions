@@ -80,7 +80,8 @@ potions/magic
 	create a space of air
 	emergent jungle tree with ladder inthe core up to a treehouse
 	install stairs on a random slope
-	
+	ward areas
+	climbable magic blocks, like antigrav
 	
 	
 [engine]

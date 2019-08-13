@@ -146,3 +146,20 @@ minetest.register_craft({
 		{'default:junglewood', '',                   'default:junglewood'},
 	}
 })
+
+
+
+
+minetest.register_craftitem("potions:arcane_book", {
+	description = "Arcane Book",
+	inventory_image = "default_book.png",
+	groups = {book = 1, flammable = 3},
+})
+
+
+
+
+
+
+
+

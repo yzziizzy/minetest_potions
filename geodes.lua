@@ -345,15 +345,16 @@ function potions.register_geode(name, opts)
 		geode_name = name,
 	})
 	
+	print("++++++++ ore registration "..name)
 	minetest.register_ore({
 		ore_type       = "scatter",
 		ore            = "potions:geode_seed_"..name,
-		wherein        = "air", --opts.wherein or "default:stone",
+		wherein        = "default:stone",
 		clust_scarcity = 48 * 48 * 48,
 		clust_num_ores = 1,
 		clust_size     = 1,
-		y_max          = opts.y_max or 100,
-		y_min          = opts.y_min or -34000,
+		y_max          = 100,
+		y_min          = -31000,
 	})	
 	
 end
@@ -364,7 +365,7 @@ minetest.register_abm({
 	name = "potions:geode_tester",
 	nodenames = "group:geode_wall",
 	chance = 1,
-	interval = 10,
+	interval = 1000,
 	action = function(pos, node)
 -- 		orient_geode_wall(pos)
 	end
@@ -392,6 +393,8 @@ minetest.register_lbm({
 	name = "potions:geode_grow",
 	nodenames = "potions:geode_seed",
 	run_at_every_load = false,
+	action = 
+})
 ]]
 
 local function pow(base, p) 
@@ -402,7 +405,7 @@ minetest.register_abm({
 	name = "potions:geode_grow",
 	nodenames = "group:geode_seed",
 	chance = 1,
-	interval = 10,
+	interval = 5,
 	action = function(pos, node)
 		
 		local def = minetest.registered_nodes[node.name]
@@ -410,12 +413,12 @@ minetest.register_abm({
 		
 		local yoff = math.min(math.max(-pos.y, 0), 1000) / 1000
 		local rarity = potions.geodes[name].rarity
-		
+		print("geode " .. rarity)
 		if math.random(rarity + 10 - math.floor(yoff*10)) > 1 then
-			minetest.set_node(pos, {name="air"})
+			minetest.set_node(pos, {name="default:stone"})
 			return
 		end
-		
+		print("growing")
 		
 		
 		local w = math.random(4) == 1
