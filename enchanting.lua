@@ -174,7 +174,7 @@ minetest.register_node("potions:treasure_seed", {
 
 
 local spawn_treasure = function(pos, node)
-print("treasure at " .. dump(pos))
+-- 	print("treasure at " .. dump(pos))
 	minetest.set_node(pos, {name="air"})
 	pos.y = pos.y - 5
 
@@ -317,17 +317,17 @@ minetest.register_node("potions:small_chest", {
 
 minetest.register_node("potions:divining_block", {
 	description = "Divining Block",
-	tiles = {"default_mese.png"},
+	tiles = {"default_silver_sandstone_brick.png"},
 	groups = {crumbly = 3},
 	sounds = default.node_sound_dirt_defaults(),
 	
 	on_punch = function(pos, node, player)
 		
-		if potions.get_manna(player) > 20 then
+		if potions.get_manna(player) > 50 then
 			
 			local p = minetest.find_node_near(pos, 50, {"group:divinable"})
 			
-			print(dump(p))
+-- 			print(dump(p))
 			
 			if p then
 				local dx = p.x - pos.x
@@ -361,7 +361,7 @@ minetest.register_node("potions:divining_block", {
 			
 			end
 			
-			potions.add_manna(player, -20)
+			potions.add_manna(player, -50)
 		end
 	
 	
@@ -370,3 +370,24 @@ minetest.register_node("potions:divining_block", {
 	
 })
 
+
+
+minetest.register_craft({
+	output = 'potions:divining_block',
+	recipe = {
+		{'','',''},
+		{'','group:leaves',''},
+		{'default:silver_sandstone_block', 'default:silver_sandstone_block', 'default:silver_sandstone_block'},
+	}
+})
+
+
+
+minetest.register_craft({
+	output = 'potions:instant_hole',
+	recipe = {
+		{'default:dirt','potions:arcane_book','default:dirt'},
+		{'', 'default:ladder', ''},
+		{'', 'default:ladder', ''},
+	}
+})

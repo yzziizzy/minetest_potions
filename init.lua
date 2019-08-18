@@ -23,6 +23,7 @@ dofile(modpath.."/structures/coffer_dam.lua")
 dofile(modpath.."/structures/bridge.lua")
 dofile(modpath.."/structures/tunnel.lua")
 dofile(modpath.."/structures/island.lua")
+dofile(modpath.."/structures/hole.lua")
 dofile(modpath.."/util/spiral.lua")
 dofile(modpath.."/util/spawn.lua")
 
