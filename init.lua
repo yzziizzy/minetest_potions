@@ -59,7 +59,7 @@ potions/magic
 	scry for nearby things; particles lead the way
 	summon a storm
 	blight an area
-	accerate (certain) plant/fungus growth in an area
+	accelerate (certain) plant/fungus growth in an area
 	conjure a volcano
 		spawn magma node
 		forge-style movement

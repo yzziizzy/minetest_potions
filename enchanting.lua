@@ -164,7 +164,8 @@ minetest.register_craftitem("potions:arcane_book", {
 
 minetest.register_node("potions:treasure_seed", {
 	description = "Treasure Seed",
-	tiles = {"default_mese.png"},
+-- 	tiles = {"default_mese.png"},
+	drawtype = "airlike",
 	groups = {crumbly = 3},
 	drop = "default:sand",
 	sounds = default.node_sound_dirt_defaults(),
@@ -226,16 +227,16 @@ minetest.register_lbm({
 	action = spawn_treasure,
 })
 
---[[
+
 minetest.register_abm({
 	label = "spawn treasure",
 	name = "potions:treasure_1",
 	nodenames = {"potions:treasure_seed"},
 	chance = 1,
-	interval = 2,
+	interval = 10,
 	action = spawn_treasure,
 })
-]]
+
 
 
 minetest.register_decoration({
@@ -372,11 +373,77 @@ minetest.register_node("potions:divining_block", {
 
 
 
+minetest.register_node("potions:geode_divining_block", {
+	description = "Divining Block",
+	tiles = {"default_sandstone_brick.png"},
+	groups = {crumbly = 3},
+	sounds = default.node_sound_dirt_defaults(),
+	
+	on_punch = function(pos, node, player)
+		
+		if potions.get_manna(player) > 90 then
+			
+			local p = minetest.find_node_near(pos, 60, {"group:geode_wall"})
+			
+-- 			print(dump(p))
+			
+			if p then
+				local dx = p.x - pos.x
+				local dz = p.z - pos.z
+				local l = math.sqrt(dx*dx + dz*dz)
+				
+				dx = dx / l
+				dz = dz / l
+				
+				local vel = 4
+				
+				minetest.add_particlespawner({
+					amount = 140,
+					time = 15,
+					minpos = pos,
+					maxpos = pos,
+					minvel = {x=dx*vel, y=5.5, z=dz*vel},
+					maxvel = {x=dx*vel, y=5.5, z=dz*vel},
+					minacc = {x=-0.1, y=-02.1, z=-0.1},
+					maxacc = {x=0.1, y=-02.1, z=0.1},
+					minexptime = 1.5,
+					maxexptime = 5.5,
+			-- 		collisiondetection = true,
+			-- 		collision_removal = true,
+					minsize = 0.5,
+					maxsize = 2.5,
+					texture = "potions_particle.png^[colorize:yellow:60",
+			-- 		animation = tileanimation
+					glow = 1
+				})
+			
+			end
+			
+			potions.add_manna(player, -90)
+		end
+	
+	
+	end
+	
+	
+})
+
+
+
 minetest.register_craft({
 	output = 'potions:divining_block',
 	recipe = {
 		{'','',''},
 		{'','group:leaves',''},
+		{'default:silver_sandstone_block', 'default:silver_sandstone_block', 'default:silver_sandstone_block'},
+	}
+})
+
+minetest.register_craft({
+	output = 'potions:geode_divining_block',
+	recipe = {
+		{'','',''},
+		{'','group:gem',''},
 		{'default:silver_sandstone_block', 'default:silver_sandstone_block', 'default:silver_sandstone_block'},
 	}
 })

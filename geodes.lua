@@ -155,7 +155,7 @@ function potions.register_geode(name, opts)
 		paramtype2 = "facedir",
 		drawtype = "nodebox",
 		tiles = tiles,
-		drops = drops,
+		drop = drops,
 		node_box = {
 			type = "fixed",
 			fixed = {
@@ -174,7 +174,7 @@ function potions.register_geode(name, opts)
 		paramtype2 = "facedir",
 		drawtype = "nodebox",
 		tiles = tiles,
-		drops = drops .. " 2",
+		drop = drops .. " 2",
 		node_box = {
 			type = "fixed",
 			fixed = {
@@ -192,7 +192,7 @@ function potions.register_geode(name, opts)
 		paramtype2 = "facedir",
 		drawtype = "nodebox",
 		tiles = tiles,
-		drops = drops .. " 2",
+		drop = drops .. " 2",
 		node_box = {
 			type = "fixed",
 			fixed = {
@@ -210,7 +210,7 @@ function potions.register_geode(name, opts)
 		paramtype2 = "facedir",
 		drawtype = "nodebox",
 		tiles = tiles,
-		drops = drops .. " 3",
+		drop = drops .. " 3",
 		node_box = {
 			type = "fixed",
 			fixed = {
@@ -229,7 +229,7 @@ function potions.register_geode(name, opts)
 		paramtype2 = "facedir",
 		drawtype = "nodebox",
 		tiles = tiles,
-		drops = drops .. " 3",
+		drop = drops .. " 3",
 		node_box = {
 			type = "fixed",
 			fixed = {
@@ -248,7 +248,7 @@ function potions.register_geode(name, opts)
 		paramtype2 = "facedir",
 		drawtype = "nodebox",
 		tiles = tiles,
-		drops = drops .. " 4",
+		drop = drops .. " 4",
 		node_box = {
 			type = "fixed",
 			fixed = {
@@ -268,7 +268,7 @@ function potions.register_geode(name, opts)
 		paramtype2 = "facedir",
 		drawtype = "nodebox",
 		tiles = tiles,
-		drops = drops .. " 4",
+		drop = drops .. " 4",
 		node_box = {
 			type = "fixed",
 			fixed = {
@@ -288,7 +288,7 @@ function potions.register_geode(name, opts)
 		paramtype2 = "facedir",
 		drawtype = "nodebox",
 		tiles = tiles,
-		drops = drops .. " 5",
+		drop = drops .. " 5",
 		node_box = {
 			type = "fixed",
 			fixed = {
@@ -309,7 +309,7 @@ function potions.register_geode(name, opts)
 		paramtype2 = "facedir",
 		drawtype = "nodebox",
 		tiles = tiles,
-		drops = drops .. " 6",
+		drop = drops .. " 6",
 		node_box = {
 			type = "fixed",
 			fixed = {
@@ -469,6 +469,7 @@ minetest.register_abm({
 minetest.register_craftitem("potions:quartz_crystal", {
 	description = "Quartz Crystal",
 	inventory_image = "potions_quartz_crystal.png",
+	groups = {gem = 1},
 -- 	y_min, y_max, biome, wherein, rarity
 })
 potions.register_geode("quartz", {
@@ -482,6 +483,7 @@ potions.register_geode("quartz", {
 minetest.register_craftitem("potions:smoky_quartz_crystal", {
 	description = "Smoky Quartz Crystal",
 	inventory_image = "potions_smoky_quartz_crystal.png",
+	groups = {gem = 1},
 })
 potions.register_geode("smoky_quartz", {
 	description = "Smoky Quartz",
@@ -493,6 +495,7 @@ potions.register_geode("smoky_quartz", {
 minetest.register_craftitem("potions:amethyst_crystal", {
 	description = "Amethyst Crystal",
 	inventory_image = "potions_amethyst_crystal.png",
+	groups = {gem = 1},
 })
 potions.register_geode("amethyst", {
 	description = "Amethyst",
@@ -515,10 +518,12 @@ potions.register_geode("epidote", {
 minetest.register_craftitem("potions:emerald_gem", {
 	description = "Emerald Gem",
 	inventory_image = "potions_emerald_gem.png",
+	groups = {gem = 1},
 })
 minetest.register_craftitem("potions:emerald_crystal", {
 	description = "Emerald Crystal",
 	inventory_image = "potions_emerald_crystal.png",
+	groups = {gem = 1},
 })
 potions.register_geode("emerald", {
 	description = "Emerald",
@@ -531,10 +536,12 @@ potions.register_geode("emerald", {
 minetest.register_craftitem("potions:ruby_gem", {
 	description = "Ruby Gem",
 	inventory_image = "potions_ruby_gem.png",
+	groups = {gem = 1},
 })
 minetest.register_craftitem("potions:ruby_crystal", {
 	description = "Ruby Crystal",
 	inventory_image = "potions_ruby_crystal.png",
+	groups = {gem = 1},
 })
 potions.register_geode("ruby", {
 	description = "Ruby",
@@ -546,10 +553,12 @@ potions.register_geode("ruby", {
 minetest.register_craftitem("potions:sapphire_gem", {
 	description = "Sapphire Gem",
 	inventory_image = "potions_sapphire_gem.png",
+	groups = {gem = 1},
 })
 minetest.register_craftitem("potions:sapphire_crystal", {
 	description = "Sapphire Crystal",
 	inventory_image = "potions_sapphire_crystal.png",
+	groups = {gem = 1},
 })
 potions.register_geode("sapphire", {
 	description = "Sapphire",
@@ -562,10 +571,12 @@ potions.register_geode("sapphire", {
 minetest.register_craftitem("potions:garnet_gem", {
 	description = "Garnet Gem",
 	inventory_image = "potions_garnet_gem.png",
+	groups = {gem = 1},
 })
 minetest.register_craftitem("potions:garnet_crystal", {
 	description = "Garnet Crystal",
 	inventory_image = "potions_garnet_crystal.png",
+	groups = {gem = 1},
 })
 potions.register_geode("garnet", {
 	description = "Garnet",
@@ -578,10 +589,12 @@ potions.register_geode("garnet", {
 minetest.register_craftitem("potions:zircon_gem", {
 	description = "Zircon Gem",
 	inventory_image = "potions_zircon_gem.png",
+	groups = {gem = 1},
 })
 minetest.register_craftitem("potions:zircon_crystal", {
 	description = "Zircon Crystal",
 	inventory_image = "potions_zircon_crystal.png",
+	groups = {gem = 1},
 })
 potions.register_geode("zircon", {
 	description = "Zircon",
