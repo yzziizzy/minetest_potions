@@ -551,7 +551,7 @@ minetest.register_craftitem("potions:speed", {
 
 minetest.register_craft( {
 	type = "cooking",
-	cooktime = 90,
+	cooktime = 30,
 	output = "potions:speed",
 	recipe = "potions:speed_broth",
 })
@@ -614,7 +614,7 @@ minetest.register_craftitem("potions:lowgrav", {
 
 minetest.register_craft( {
 	type = "cooking",
-	cooktime = 90,
+	cooktime = 30,
 	output = "potions:lowgrav",
 	recipe = "potions:lowgrav_broth",
 })
@@ -639,7 +639,7 @@ minetest.register_craft({
 minetest.register_craftitem("potions:teleport_broth", {
 	description = "Teleportation Potion Broth",
 	inventory_image = "potions_teleport_broth.png",
-	stack_max = 3,
+	stack_max = 4,
 })
 
 minetest.register_craftitem("potions:teleport", {
@@ -671,7 +671,7 @@ minetest.register_craftitem("potions:teleport_recall", {
 
 minetest.register_craft( {
 	type = "cooking",
-	cooktime = 90,
+	cooktime = 30,
 	output = "potions:teleport",
 	recipe = "potions:teleport_broth",
 })
@@ -743,7 +743,7 @@ minetest.register_craftitem("potions:flight", {
 
 minetest.register_craft( {
 	type = "cooking",
-	cooktime = 90,
+	cooktime = 30,
 	output = "potions:flight",
 	recipe = "potions:flight_broth",
 })
