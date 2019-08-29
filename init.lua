@@ -534,7 +534,7 @@ minetest.register_craftitem("potions:speed", {
 			speed = 3.0,
 		})
 		
-		minetest.after(10, function()
+		minetest.after(20, function()
 			user:set_physics_override({
 				speed = 1.0,
 			})
@@ -592,12 +592,12 @@ minetest.register_craftitem("potions:lowgrav", {
 			})
 		end)		
 		
-		minetest.after(12, function()
+		minetest.after(18, function()
 			user:set_physics_override({
 				gravity = .75,
 			})
 		end)
-		minetest.after(14, function()
+		minetest.after(25, function()
 			user:set_physics_override({
 				gravity = 1.0,
 			})
@@ -711,7 +711,7 @@ minetest.register_craftitem("potions:flight", {
 		privs.fly = true
 		minetest.set_player_privs(name, privs)
 		
-		minetest.after(10, function()
+		minetest.after(14, function()
 			local privs = minetest.get_player_privs(name)
 			privs.fly = nil
 			minetest.set_player_privs(name, privs)
@@ -721,12 +721,12 @@ minetest.register_craftitem("potions:flight", {
 			})
 		end)		
 		
-		minetest.after(14, function()
+		minetest.after(18, function()
 			user:set_physics_override({
 				gravity = .75,
 			})
 		end)
-		minetest.after(18, function()
+		minetest.after(22, function()
 			user:set_physics_override({
 				gravity = 1.0,
 			})
