@@ -458,3 +458,55 @@ minetest.register_craft({
 		{'', 'default:ladder', ''},
 	}
 })
+
+
+
+
+
+
+
+minetest.register_craftitem("potions:firefly_stick", {
+	description = "Firefly Stick",
+	inventory_image = "default_stick.png^[colorize:yellow:200",
+	stack_max = 5,
+	on_use = function(itemstack, user, pointed_thing)
+		
+		if potions.get_manna(user) > 80 then
+			
+			local pos = user:getpos()
+			
+			pos.y = pos.y + 1
+			
+			local function try(p)
+				local n = minetest.get_node(p)
+				if n.name == "air" then
+					minetest.set_node(p, {name="fireflies:firefly"})
+				end
+			end
+			
+			try({x=pos.x + 5, y=pos.y, z=pos.z + 0})
+			try({x=pos.x + 5, y=pos.y, z=pos.z + 5})
+			try({x=pos.x + 0, y=pos.y, z=pos.z + 0})
+			try({x=pos.x + 0, y=pos.y, z=pos.z + 5})
+			
+			potions.add_manna(user, -80)
+		end
+		return itemstack
+		
+	end,
+})
+
+
+
+minetest.register_craft({
+	output = 'potions:firefly_stick',
+	recipe = {
+		{'fireflies:firefly',          '',            ''},
+		{'default:stick', '', ''},
+		{'potions:arcane_book', '',                   ''},
+	},
+	replacements = {{"potions:arcane_book", "potions:arcane_book"}},
+})
+
+
+
